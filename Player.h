@@ -6,7 +6,7 @@
 class Player : public Robot
 {
 public:
-	Player();
+	Player(MQTTClient &mqttClient, GameModel &gameModel);
 	~Player();
 
 	void start();

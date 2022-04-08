@@ -23,6 +23,7 @@ struct RobotSetpoint
     float rotation;
 };
 
+#include <iostream>
 #include <string>
 
 #include <raylib.h>

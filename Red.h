@@ -6,7 +6,7 @@
 class Red : public Robot
 {
 public:
-	Red();
+	Red(MQTTClient& mqttClient, GameModel& gameModel);
 	~Red();
 
 	void start();

@@ -6,7 +6,7 @@
 class Pink : public Robot
 {
 public:
-	Pink();
+	Pink(MQTTClient& mqttClient, GameModel& gameModel);
 	~Pink();
 
 	void start();

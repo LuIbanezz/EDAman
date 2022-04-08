@@ -6,7 +6,7 @@
 class Orange : public Robot
 {
 public:
-	Orange();
+	Orange(MQTTClient &mqttClient, GameModel &gameModel);
 	~Orange();
 
 	void start();

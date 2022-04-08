@@ -2,8 +2,8 @@
 
 Orange::Orange(MQTTClient &mqttClient, GameModel &gameModel)
 {
-    this->mqttClient = mqttClient;
-    this->gameModel = gameModel;
+    this->mqttClient = &mqttClient;
+    this->gameModel = &gameModel;
     robotId = std::string("robot1");
 }
 
@@ -14,7 +14,7 @@ Orange::~Orange()
     
 void Orange::start()
 {
-    if(!(mqttClient->connect("127.0.0.1", 1883, "user", "vdivEMMN3SQWX2Ez"))
+    if(!(mqttClient->connect("127.0.0.1", 1883, "user", "vdivEMMN3SQWX2Ez")))
     {
         std::cout << "No se logró establecer la conexión" << std::endl;
     }

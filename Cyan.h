@@ -6,7 +6,7 @@
 class Cyan : public Robot
 {
 public:
-	Cyan();
+	Cyan(MQTTClient &mqttClient, GameModel &gameModel);
 	~Cyan();
 
 	void start();
