@@ -5,7 +5,7 @@ Pink::Pink(MQTTClient &mqttClient, GameModel &gameModel)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
-    robotId = std::string("robot1");
+    robotId = std::string("robot3");
 }
 
 Pink::~Pink()

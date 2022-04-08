@@ -15,6 +15,12 @@
 #include "GameModel.h"
 #include "GameView.h"
 
+#include "Player.h"
+#include "Red.h"
+#include "Orange.h"
+#include "Cyan.h"
+#include "Pink.h"
+
 using namespace std;
 
 int main(int, char **)
@@ -78,7 +84,20 @@ int main(int, char **)
 
     // Configure
     gameModel.setGameView(&gameView);
-    gameModel.start(maze);
+
+    Player player(mqttClient, gameModel);
+    Red red(mqttClient, gameModel);
+    Orange orange(mqttClient, gameModel);
+    Cyan cyan(mqttClient, gameModel);
+    Pink pink(mqttClient, gameModel);
+
+    gameModel.addRobot(&player);    // robot1
+    gameModel.addRobot(&red);       // robot2
+    gameModel.addRobot(&pink);      // robot3
+    gameModel.addRobot(&cyan);      // robot4
+    gameModel.addRobot(&orange);    // robot5  
+
+    gameModel.start(maze);          
 
     while (!WindowShouldClose() && mqttClient.isConnected())
     {
@@ -98,6 +117,7 @@ int main(int, char **)
         // Keyboard control
         if (IsKeyPressed(KEY_UP))
         {
+
             // Your code goes here...
         }
         else if (IsKeyPressed(KEY_RIGHT))
@@ -123,4 +143,19 @@ int main(int, char **)
     CloseWindow();
 
     cout << "Disconnected." << endl;
+}
+
+void initializeRobots (GameModel &gameModel, MQTTClient &mqttClient)
+{
+    Player player(mqttClient, gameModel);
+    Red red(mqttClient, gameModel);
+    Orange orange(mqttClient, gameModel);
+    Cyan cyan(mqttClient, gameModel);
+    Pink pink (mqttClient, gameModel);
+
+    gameModel.addRobot(&player);
+    gameModel.addRobot(&red);
+    gameModel.addRobot(&cyan);
+    gameModel.addRobot(&pink);
+    gameModel.addRobot(&orange);
 }

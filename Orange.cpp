@@ -4,7 +4,10 @@ Orange::Orange(MQTTClient &mqttClient, GameModel &gameModel)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
-    robotId = std::string("robot1");
+    robotId = std::string("robot5");
+    
+    // TODO
+    // displayImages = LoadImage("RobotImages.png");
 }
 
 Orange::~Orange()

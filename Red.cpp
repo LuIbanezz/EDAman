@@ -4,7 +4,7 @@ Red::Red(MQTTClient &mqttClient, GameModel &gameModel)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
-    robotId = std::string("robot1");
+    robotId = std::string("robot2");
 }
 
 Red::~Red()

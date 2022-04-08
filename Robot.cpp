@@ -14,8 +14,8 @@ using namespace std;
 
 Robot::Robot()
 {
-    // To-Do: set your path!
-    displayImages = LoadImage("../../RobotImages.png");
+    // TODO: Ver para hacerlo cross-platform
+    displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
 }
 
 Robot::~Robot()

@@ -13,7 +13,7 @@ public:
 	void update(float deltaTime);
 
 private:
-
+	KeyboardKey lastKeyPressed;
 };
 
 #endif // _PLAYER_H
