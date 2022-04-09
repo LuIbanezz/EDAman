@@ -15,6 +15,7 @@ public:
 
 private:
 	KeyboardKey lastKeyPressed;
+	bool isNextLocationPosible(float deltaTime);
 };
 
 #endif // _PLAYER_H

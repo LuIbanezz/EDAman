@@ -7,10 +7,10 @@
 #ifndef _ROBOT_H
 #define _ROBOT_H
 
-#define LEFT 0
-#define UP 90
-#define RIGHT 180
-#define DOWN 270
+#define ROTATION_LEFT 270
+#define ROTATION_UP 0
+#define ROTATION_RIGHT 90
+#define ROTATION_DOWN 180
 
 class GameModel;
 
