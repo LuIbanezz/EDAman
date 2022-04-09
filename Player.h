@@ -11,6 +11,7 @@ public:
 
 	void start();
 	void update(float deltaTime);
+	void setKeyboardKey(KeyboardKey lastKeyPressed);
 
 private:
 	KeyboardKey lastKeyPressed;

@@ -117,20 +117,19 @@ int main(int, char **)
         // Keyboard control
         if (IsKeyPressed(KEY_UP))
         {
-
-            // Your code goes here...
+            player.setKeyboardKey(KEY_UP);
         }
         else if (IsKeyPressed(KEY_RIGHT))
         {
-            // Your code goes here...
+            player.setKeyboardKey(KEY_RIGHT);
         }
         else if (IsKeyPressed(KEY_DOWN))
         {
-            // Your code goes here...
+            player.setKeyboardKey(KEY_DOWN);
         }
         else if (IsKeyPressed(KEY_LEFT))
         {
-            // Your code goes here...
+            player.setKeyboardKey(KEY_LEFT);
         }
         else
         {
@@ -138,6 +137,8 @@ int main(int, char **)
         }
 
         gameView.update(deltaTime);
+
+        
     }
 
     CloseWindow();
@@ -145,7 +146,7 @@ int main(int, char **)
     cout << "Disconnected." << endl;
 }
 
-void initializeRobots (GameModel &gameModel, MQTTClient &mqttClient)
+/*void initializeRobots (GameModel &gameModel, MQTTClient &mqttClient)
 {
     Player player(mqttClient, gameModel);
     Red red(mqttClient, gameModel);
@@ -158,4 +159,4 @@ void initializeRobots (GameModel &gameModel, MQTTClient &mqttClient)
     gameModel.addRobot(&cyan);
     gameModel.addRobot(&pink);
     gameModel.addRobot(&orange);
-}
+}*/

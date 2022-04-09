@@ -14,13 +14,10 @@ Cyan::~Cyan()
     
 void Cyan::start()
 {
-    if(!(mqttClient->connect("127.0.0.1", 1883, "user", "vdivEMMN3SQWX2Ez")))
-    {
-        std::cout << "No se logró establecer la conexión" << std::endl;
-    }
 
     // TODO: Ver si lo que le mandamos al display va en start o en el constructor
     setDisplay(21);
+    setEyes(SKYBLUE, SKYBLUE);
 }
 
 void Cyan::update(float deltaTime)

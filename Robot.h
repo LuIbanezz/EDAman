@@ -7,6 +7,11 @@
 #ifndef _ROBOT_H
 #define _ROBOT_H
 
+#define LEFT 0
+#define UP 90
+#define RIGHT 180
+#define DOWN 270
+
 class GameModel;
 
 struct RobotSetpoint
@@ -25,6 +30,7 @@ struct RobotSetpoint
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include <raylib.h>
 
@@ -45,6 +51,8 @@ protected:
     MQTTClient *mqttClient;
     GameModel *gameModel;
     std::string robotId;
+
+    RobotSetpoint robotLocation;
 
     Image displayImages;
 
