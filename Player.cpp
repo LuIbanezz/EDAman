@@ -5,6 +5,7 @@ Player::Player(MQTTClient& mqttClient, GameModel& gameModel)
 	this->mqttClient = &mqttClient;
 	this->gameModel = &gameModel;
 	robotId = std::string("robot1");
+	lastKeyPressed = KEY_NULL;
 }
 
 Player::~Player()
@@ -28,7 +29,6 @@ void Player::update(float deltaTime)
 	//vel que queremos m/s (fija(dato)) * 100 cm/m * deltaTime 
 	//0.64 * 100 * delta time ===>sumamos en la coordenada X o Y
 	//0.72 """"""
-
 
 	if (isNextLocationPosible(deltaTime))
 	{

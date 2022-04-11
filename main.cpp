@@ -145,18 +145,3 @@ int main(int, char **)
 
     cout << "Disconnected." << endl;
 }
-
-/*void initializeRobots (GameModel &gameModel, MQTTClient &mqttClient)
-{
-    Player player(mqttClient, gameModel);
-    Red red(mqttClient, gameModel);
-    Orange orange(mqttClient, gameModel);
-    Cyan cyan(mqttClient, gameModel);
-    Pink pink (mqttClient, gameModel);
-
-    gameModel.addRobot(&player);
-    gameModel.addRobot(&red);
-    gameModel.addRobot(&cyan);
-    gameModel.addRobot(&pink);
-    gameModel.addRobot(&orange);
-}*/
