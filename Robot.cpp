@@ -15,8 +15,8 @@ using namespace std;
 Robot::Robot()
 {
     // TODO: Ver para hacerlo cross-platform
-    displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
-    // displayImages = LoadImage("../RobotImages.png");
+    // displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
+    displayImages = LoadImage("../RobotImages.png");
 }
 
 Robot::~Robot()

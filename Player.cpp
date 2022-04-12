@@ -16,7 +16,7 @@ Player::~Player()
 void Player::start()
 {
 	// TODO: Ver si lo que le mandamos al display va en start o en el constructor
-	setDisplay(0);
+	setDisplay(1);
 	setEyes(YELLOW, YELLOW);
 	liftTo(0, -0.8);
 	robotLocation = getRobotSetpoint({ 14,26 }, ROTATION_DOWN);

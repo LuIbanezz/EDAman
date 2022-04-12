@@ -15,9 +15,8 @@ Pink::~Pink()
     
 void Pink::start()
 {
-
     // TODO: Ver si lo que le mandamos al display va en start o en el constructor
-    setDisplay(0);
+    setDisplay(19);
     setEyes(PINK, PINK);
 }
 
