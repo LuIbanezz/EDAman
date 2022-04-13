@@ -1,9 +1,10 @@
-/*
+/**
  * EDA-Man
  *
- * Copyright (C) 2022 Marc S. Ressl
- *
- * Controls an EDA-Man game.
+ * @copyright Copyright (C) 2022
+ * @author Marc S. Ressl
+ * 
+ * @brief Controls an EDA-Man game.
  */
 
 #include <iostream>
@@ -37,7 +38,7 @@ int main(int, char **)
     cout << "Connected." << endl;
 
     // raylib
-    InitWindow(640, 480, "EDA-Man Controller");
+    InitWindow(640, 480, "EDAPark Controller");
     SetTargetFPS(60);
 
     string maze =
@@ -57,9 +58,9 @@ int main(int, char **)
         "     s+ph``w vw v``iq+r     "
         "     s+pq          pq+r     "
         "     s+pq dcc__cce pq+r     "
-        "jbbbbw+vw r      s vw+vbbbbk"
-        "s     +   r      s   +     r"
-        "zccccg+fg r      s fg+fcccc{"
+        "     s+vw r      s vw+r     "
+        "     s+   r      s   +r     "
+        "     s+fg r      s fg+r     "
         "     s+pq tbbbbbbu pq+r     "
         "     s+pq          pq+r     "
         "     s+pq faaaaaag pq+r     "
@@ -95,9 +96,9 @@ int main(int, char **)
     gameModel.addRobot(&red);       // robot2
     gameModel.addRobot(&pink);      // robot3
     gameModel.addRobot(&cyan);      // robot4
-    gameModel.addRobot(&orange);    // robot5  
+    gameModel.addRobot(&orange);    // robot5 
 
-    gameModel.start(maze);          
+    gameModel.start(maze);
 
     while (!WindowShouldClose() && mqttClient.isConnected())
     {
@@ -115,19 +116,19 @@ int main(int, char **)
         gameModel.update(deltaTime);
 
         // Keyboard control
-        if (IsKeyPressed(KEY_UP))
+        if (IsKeyDown(KEY_UP))
         {
             player.setKeyboardKey(KEY_UP);
         }
-        else if (IsKeyPressed(KEY_RIGHT))
+        else if (IsKeyDown(KEY_RIGHT))
         {
             player.setKeyboardKey(KEY_RIGHT);
         }
-        else if (IsKeyPressed(KEY_DOWN))
+        else if (IsKeyDown(KEY_DOWN))
         {
             player.setKeyboardKey(KEY_DOWN);
         }
-        else if (IsKeyPressed(KEY_LEFT))
+        else if (IsKeyDown(KEY_LEFT))
         {
             player.setKeyboardKey(KEY_LEFT);
         }
@@ -137,8 +138,6 @@ int main(int, char **)
         }
 
         gameView.update(deltaTime);
-
-        
     }
 
     CloseWindow();
