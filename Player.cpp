@@ -9,6 +9,7 @@ Player::Player(MQTTClient& mqttClient, GameModel& gameModel)
 	this->gameModel = &gameModel;
 	robotId = std::string("robot1");
 	lastKeyPressed = KEY_NULL;
+	previousDirection = KEY_NULL;
 }
 
 Player::~Player()
@@ -33,7 +34,11 @@ void Player::update(float deltaTime)
 	//0.64 * 100 * delta time ===>sumamos en la coordenada X o Y
 	//0.72 """"""
 
-	if (isNextLocationPosible(deltaTime))
+	if (check(deltaTime, true))
+	{
+		setSetpoint(setpoint);
+	}
+	else if (check(deltaTime, false))
 	{
 		setSetpoint(setpoint);
 	}
@@ -44,27 +49,37 @@ void Player::setKeyboardKey(KeyboardKey lastKeyPressed)
 	this->lastKeyPressed = lastKeyPressed;
 }
 
-bool Player::isNextLocationPosible(float deltaTime)
+bool Player::check(float deltaTime, bool nextMove)
 {
-	Setpoint robotFutureLocation = setpoint;
+	KeyboardKey option;
 	const float position = 0.64 * deltaTime;
+	Setpoint robotFutureLocation = setpoint;
 
 	//robotFutureLocation.position = 0.009 * deltaTime;
 	//robotFutureLocation.positionX += 0.009;
 
-	if (lastKeyPressed == KEY_UP)
+	if (nextMove)
+	{
+		option = lastKeyPressed;
+	}
+	else
+	{
+		option = previousDirection;
+	}
+
+	if (option == KEY_UP)
 	{
 		robotFutureLocation = moveUp(position, robotFutureLocation);
 	}
-	else if (lastKeyPressed == KEY_RIGHT)
+	else if (option == KEY_RIGHT)
 	{
 		robotFutureLocation = moveRight(position, robotFutureLocation);
 	}
-	else if (lastKeyPressed == KEY_LEFT)
+	else if (option == KEY_LEFT)
 	{
 		robotFutureLocation = moveLeft(position, robotFutureLocation);
 	}
-	else if (lastKeyPressed == KEY_DOWN)
+	else if (option == KEY_DOWN)
 	{
 		robotFutureLocation = moveDown(position, robotFutureLocation);
 	}
@@ -72,6 +87,10 @@ bool Player::isNextLocationPosible(float deltaTime)
 	if (gameModel->isTileFree(getTilePosition(robotFutureLocation)))
 	{
 		setpoint = robotFutureLocation;
+		if (nextMove)
+		{
+			previousDirection = lastKeyPressed;
+		}
 		return true;
 	}
 

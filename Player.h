@@ -15,7 +15,9 @@ public:
 
 private:
 	KeyboardKey lastKeyPressed;
-	bool isNextLocationPosible(float deltaTime);
+	KeyboardKey previousDirection;
+
+	bool check(float deltaTime, bool option);
 };
 
 #endif // _PLAYER_H
