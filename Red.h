@@ -1,9 +1,9 @@
 #ifndef _RED_H
 #define _RED_H
 
-#include "Robot.h"
+#include "Ghost.h"
 
-class Red : public Robot
+class Red : public Ghost
 {
 public:
 	Red(MQTTClient& mqttClient, GameModel& gameModel);

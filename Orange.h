@@ -1,9 +1,9 @@
 #ifndef _ORANGE_H
 #define _ORANGE_H
 
-#include "Robot.h"
+#include "Ghost.h"
 
-class Orange : public Robot
+class Orange : public Ghost
 {
 public:
 	Orange(MQTTClient &mqttClient, GameModel &gameModel);

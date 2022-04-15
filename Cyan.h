@@ -1,9 +1,9 @@
 #ifndef _CYAN_H
 #define _CYAN_H
 
-#include "Robot.h"
+#include "Ghost.h"
 
-class Cyan : public Robot
+class Cyan : public Ghost
 {
 public:
 	Cyan(MQTTClient &mqttClient, GameModel &gameModel);

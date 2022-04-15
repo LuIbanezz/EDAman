@@ -1,9 +1,9 @@
 #ifndef _PINK_H_
 #define _PINK_H_
 
-#include "Robot.h"
+#include "Ghost.h"
 
-class Pink : public Robot
+class Pink : public Ghost
 {
 public:
 	Pink(MQTTClient& mqttClient, GameModel& gameModel);

@@ -34,11 +34,12 @@ add_executable(main
                     GameView.cpp 
                     MQTTClient.cpp 
                     Robot.cpp 
-                    Player.cpp 
+                    Player.cpp
+                    Ghost.cpp
                     Red.cpp 
                     Cyan.cpp 
                     Orange.cpp 
-                    Pink.cpp)
+                    Pink.cpp "Ghost.cpp")
 
 # Packages
 find_package(raylib CONFIG REQUIRED)
