@@ -1,9 +1,10 @@
 #include "Orange.h"
 
-Orange::Orange(MQTTClient &mqttClient, GameModel &gameModel)
+Orange::Orange(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
+    this->player = &player;
     robotId = std::string("robot5");
     
     // TODO
@@ -17,13 +18,17 @@ Orange::~Orange()
     
 void Orange::start()
 {
-
     // TODO: Ver si lo que le mandamos al display va en start o en el constructor
     setDisplay(23);
     setEyes(ORANGE, ORANGE);
 }
 
 void Orange::update(float deltaTime)
+{
+    
+}
+
+void Orange::calculateObjectiveTile()
 {
     
 }

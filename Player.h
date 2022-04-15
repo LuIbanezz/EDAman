@@ -12,6 +12,7 @@ public:
 	void start();
 	void update(float deltaTime);
 	void setKeyboardKey(KeyboardKey lastKeyPressed);
+	Vector2 getPlayerPosition();
 
 private:
 	KeyboardKey lastKeyPressed;

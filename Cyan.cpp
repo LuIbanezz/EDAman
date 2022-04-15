@@ -1,9 +1,10 @@
 #include "Cyan.h"
 
-Cyan::Cyan(MQTTClient &mqttClient, GameModel &gameModel)
+Cyan::Cyan(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
+    this->player = &player;
     robotId = std::string("robot4");
 }
 
@@ -23,4 +24,9 @@ void Cyan::start()
 void Cyan::update(float deltaTime)
 {
     
+}
+
+void Cyan::calculateObjectiveTile()
+{
+
 }

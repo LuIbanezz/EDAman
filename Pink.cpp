@@ -1,10 +1,11 @@
 #include "Pink.h"
 
 
-Pink::Pink(MQTTClient &mqttClient, GameModel &gameModel)
+Pink::Pink(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
 {
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
+    this->player = &player;
     robotId = std::string("robot3");
 }
 
@@ -21,6 +22,11 @@ void Pink::start()
 }
 
 void Pink::update(float deltaTime)
+{
+    
+}
+
+void Pink::calculateObjectiveTile()
 {
     
 }

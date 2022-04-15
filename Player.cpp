@@ -96,3 +96,8 @@ bool Player::check(float deltaTime, bool nextMove)
 
 	return false;
 }
+
+Vector2 Player::getPlayerPosition()
+{
+	return getTilePosition(setpoint);
+}

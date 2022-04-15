@@ -3,6 +3,7 @@
 
 #include "Robot.h"
 #include "raymath.h"
+#include "Player.h"
 
 class Ghost : public Robot
 {
@@ -13,13 +14,12 @@ public:
 protected:
     Vector2 objectiveTile;
     Vector2 dispersionTile;
-    Setpoint currentPosition;
     int lastDirection;
     int newDirection;
 
-    virtual void calculateObjectiveTile() = 0;   // TODO in red, pink, cyan, orange
-    void calculateNewDirection(GameModel &gameModel);       // TODO
-    void move(int direction);           // TODO
-}
+    virtual void calculateObjectiveTile() = 0;  // TODO in red, pink, cyan, orange
+    void calculateNewDirection();       // TODO
+    void move(float deltaTime);           // TODO
+};
 
 #endif  // _GHOST_H

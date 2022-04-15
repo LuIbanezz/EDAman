@@ -39,7 +39,7 @@ add_executable(main
                     Red.cpp 
                     Cyan.cpp 
                     Orange.cpp 
-                    Pink.cpp "Ghost.cpp")
+                    Pink.cpp)
 
 # Packages
 find_package(raylib CONFIG REQUIRED)

@@ -6,11 +6,15 @@
 class Orange : public Ghost
 {
 public:
-	Orange(MQTTClient &mqttClient, GameModel &gameModel);
+	Orange(MQTTClient &mqttClient, GameModel &gameModel, Player &player);
 	~Orange();
 
 	void start();
 	void update(float deltaTime);
+
+private:
+	Player *player;
+	void calculateObjectiveTile();
 };
 
 #endif // _ORANGE_H

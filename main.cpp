@@ -87,10 +87,10 @@ int main(int, char **)
     gameModel.setGameView(&gameView);
 
     Player player(mqttClient, gameModel);
-    Red red(mqttClient, gameModel);
-    Orange orange(mqttClient, gameModel);
-    Cyan cyan(mqttClient, gameModel);
-    Pink pink(mqttClient, gameModel);
+    Red red(mqttClient, gameModel, player);
+    Orange orange(mqttClient, gameModel, player);
+    Cyan cyan(mqttClient, gameModel, player);
+    Pink pink(mqttClient, gameModel, player);
 
     gameModel.addRobot(&player);    // robot1
     gameModel.addRobot(&red);       // robot2
