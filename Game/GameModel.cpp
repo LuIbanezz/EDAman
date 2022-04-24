@@ -77,8 +77,7 @@ void GameModel::start(string maze)
     lives = 4;
     eatenFruits.clear();
 
-    gameState = GameStart;
-
+    gameState = Dispersion;
     gameTime = 0;
 
     gameView->setMessage(GameViewMessageReady);
@@ -142,7 +141,8 @@ void GameModel::eat(Vector2 tilePosition)
         maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
         remainingEnergizers--;
-        //TODO: activate blue mode
+        
+       // gameState = Blue; //TODO
     }
 }
 
@@ -159,4 +159,14 @@ float GameModel::getGameTime()
 int GameModel::getRemainingDots() 
 {
     return remainingDots;
+}
+
+int GameModel::getGameState()
+{
+    return gameState;
+}
+
+void GameModel::setGameState(int gameState) 
+{
+    this->gameState = gameState;
 }

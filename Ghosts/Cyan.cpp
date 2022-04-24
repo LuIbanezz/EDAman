@@ -7,6 +7,9 @@ Cyan::Cyan(MQTTClient &mqttClient, GameModel &gameModel, Player &player, Red &re
     this->player = &player;
     this->red = &red;
     robotId = std::string("robot3");
+
+    dispersionTile = {28, 36 + 2};
+    isMoving = false;
 }
 
 Cyan::~Cyan()
@@ -22,9 +25,6 @@ void Cyan::start()
     setpoint.rotation = ROTATION_UP;
     setpoint = getSetpoint({12, 17});
 	setSetpoint(setpoint);
-
-    isMoving = false;
-	// dispersionTile = { 0, 36 + 2 };   // TODO: ver MAZE_HEIGHT
 
     // float aux = GetTime();
     // while (GetTime() - aux < 1.5) {
@@ -42,10 +42,22 @@ void Cyan::update(float deltaTime)
 		}
 		else
 		{
-			calculateObjectiveTile();
-			calculateNewDirection();
-			move(deltaTime);
-		}
+            switch(gameModel->getGameState())
+            {
+                case(Persecution):
+                    calculateObjectiveTile();
+                    break;
+                case(Dispersion):
+                    objectiveTile = dispersionTile;
+                    break;
+                case(Blue):
+                    calculateBlueObjectiveTile();
+                    break;
+            }
+
+            calculateNewDirection();
+            move(deltaTime);
+        }
     }
 }
 

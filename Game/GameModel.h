@@ -20,9 +20,10 @@ class Robot;
  */
 enum GameState
 {
-    GameStart,
-    GameStarting,
-    GamePlaying
+    Dispersion,
+    Persecution,
+    Blue,
+    GameOver
 };
 
 #include <string>
@@ -55,6 +56,9 @@ public:
     float getGameTime();
 
     int getRemainingDots();
+
+    int getGameState();
+    void setGameState(int gameState);
 
 private:
     MQTTClient *mqttClient;

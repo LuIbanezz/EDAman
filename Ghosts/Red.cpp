@@ -8,7 +8,8 @@ Red::Red(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
     robotId = std::string("robot2");
 
     objectiveTile = {0, 0};
-    lastDirection = 0;
+    dispersionTile = {28-2,-2}; //MAZE_WIDTH - 2, -2
+    lastDirection = 1;
     newDirection = 0;
 }
 
@@ -31,18 +32,28 @@ void Red::start()
     while (GetTime() - aux < 1.5) {
         ;
     }
- 
 }
 
 void Red::update(float deltaTime)
 {
     if (gameModel->getGameTime() > 0)   //automaticamente al tocar una tecla Game time será mayor a 0 ent el rojo perseguirá
     { 
-        calculateObjectiveTile();
+        switch(gameModel->getGameState())
+        {
+            case(Persecution):
+                calculateObjectiveTile();
+                break;
+            case(Dispersion):
+                objectiveTile = dispersionTile;
+                break;
+            case(Blue):
+                calculateBlueObjectiveTile();
+                break;
+        }
+
         calculateNewDirection();
         move(deltaTime);
     }
-
 }
 
 void Red::calculateObjectiveTile()
@@ -50,6 +61,7 @@ void Red::calculateObjectiveTile()
     objectiveTile = player->getPlayerPosition();
 }
 
-Vector2 Red::getRedTile() {
+Vector2 Red::getRedTile()
+{
     return  getTilePosition(setpoint);
 }

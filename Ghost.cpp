@@ -1,6 +1,11 @@
 #include "Ghost.h"
 #include "Game/GameModel.h"
 
+Ghost::Ghost()
+{
+    srand(time(NULL));
+}
+
 void Ghost::calculateNewDirection()
 {
     float distanceObjectiveTile[4] = {0.0f, 0.0f, 0.0f, 0.0f}; // 0 (UP), 1 (RIGHT), 2 (DOWN) ,3 (LEFT)
@@ -33,9 +38,10 @@ void Ghost::calculateNewDirection()
             {
                 distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile, nextTile));
 
-                if (distanceObjectiveTile[i] < minDistance)
-                {
-                    minDistance = distanceObjectiveTile[i];
+
+                if (minDistance - distanceObjectiveTile[i] > 0.25)  // dejo margen de error, si las 
+                {                                                     // distancias son muy parecidas, 
+                    minDistance = distanceObjectiveTile[i];           // gasto menos energia si sigo de largo que si giro.
                     newDirection = i;
                 }
             }
@@ -43,6 +49,32 @@ void Ghost::calculateNewDirection()
     }
 
     lastDirection = newDirection;
+}
+
+void Ghost::calculateBlueObjectiveTile()
+{
+    int direction;
+    
+    do {
+        direction = rand() % 3;
+    } while (direction != lastDirection);
+
+    switch (direction)
+    {
+        case 0:
+            objectiveTile = Vector2Subtract(getTilePosition(setpoint), { 0,1 });
+            break;
+        case 1:
+            objectiveTile = Vector2Add(getTilePosition(setpoint), {1, 0});
+            break;
+        case 2:
+            objectiveTile = Vector2Add(getTilePosition(setpoint), { 0, 1 });
+            break;
+        case 3:
+            objectiveTile = Vector2Subtract(getTilePosition(setpoint), { 1,0 });
+            break;
+    }
+
 }
 
 void Ghost::move(float deltaTime)

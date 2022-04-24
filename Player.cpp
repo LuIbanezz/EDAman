@@ -28,7 +28,7 @@ void Player::start()
 
 void Player::update(float deltaTime)
 {
-	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0))
+	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0)) //esto es para que arranque el tiempo cuando se presiona la primer tecla
 	{
 		gameModel->setGameTime(GetTime());
 	}

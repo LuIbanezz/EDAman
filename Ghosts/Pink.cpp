@@ -6,6 +6,9 @@ Pink::Pink(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
     this->gameModel = &gameModel;
     this->player = &player;
     robotId = std::string("robot4");
+
+    dispersionTile = {2, -2};
+    isMoving = false;
 }
 
 Pink::~Pink()
@@ -23,7 +26,6 @@ void Pink::start()
     setpoint = getSetpoint({14, 17});
     setSetpoint(setpoint);
 
-    isMoving = false;
 
     // float aux = GetTime();
     // while (GetTime() - aux < 1.5)
@@ -42,14 +44,22 @@ void Pink::update(float deltaTime)
         }
         else
         {
-            calculateObjectiveTile();
+            switch(gameModel->getGameState())
+            {
+                case(Persecution):
+                    calculateObjectiveTile();
+                    break;
+                case(Dispersion):
+                    objectiveTile = dispersionTile;
+                    break;
+                case(Blue):
+                    calculateBlueObjectiveTile();
+                    break;
+            }
+
             calculateNewDirection();
             move(deltaTime);
         }
-
-        // calculateObjectiveTile();
-        // calculateNewDirection();
-        // move(deltaTime);
     }
 }
 
