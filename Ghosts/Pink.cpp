@@ -18,29 +18,59 @@ void Pink::start()
     // TODO: Ver si lo que le mandamos al display va en start o en el constructor
     setDisplay(19);
     setEyes(PINK, PINK);
+    liftTo({ 0,0,0 });
     setpoint.rotation = ROTATION_UP;
-    setpoint = getSetpoint({14, 17});
+    setpoint = getSetpoint({14,17});
     setSetpoint(setpoint);
-    float aux = GetTime();
-    while (GetTime() - aux < 1.5) {
-        ;
-    }
+    isMoving = false;
+    
+    // float aux = GetTime();
+    // while (GetTime() - aux < 1.5) 
+    // {
+    //     ;
+    // }
 }
 
 void Pink::update(float deltaTime)
 {
-    if (gameModel->getGameTime() > 0) { //pink tambien está libre al inicio
-        if (setpoint.position.x == 14 && setpoint.position.x == 17) {
-            setpoint = getSetpoint({ 14, 14 });
+    if (gameModel->getGameTime() > 0) //pink tambien está libre al inicio
+    {
+        if (!isMoving)
+        {
+            liftTo({ 0,0,0.3 });
+            setpoint = getSetpoint({14,15});
             setSetpoint(setpoint);
+
+            isMoving = true;
         }
-        calculateObjectiveTile();
-        calculateNewDirection();
-        move(deltaTime);
+        else 
+        {
+            calculateObjectiveTile();
+            calculateNewDirection();
+            move(deltaTime);
+        }
+        
+        // calculateObjectiveTile();
+        // calculateNewDirection();
+        // move(deltaTime);
     }
 }
 
 void Pink::calculateObjectiveTile()
 {
-    objectiveTile = Vector2Add(player->getPlayerPosition(), {0,4});
+    switch (player->getPlayerDirection())
+    {
+        case (0):
+            objectiveTile = Vector2Subtract(player->getPlayerPosition(), {0,4});
+            break;
+        case (1):
+            objectiveTile = Vector2Subtract(player->getPlayerPosition(), {4,0 });
+            break;
+        case (2):
+            objectiveTile = Vector2Add(player->getPlayerPosition(), {0,4});
+            break;
+        case (3):
+            objectiveTile = Vector2Add(player->getPlayerPosition(), { 4,0 });
+            break;
+    }
 }

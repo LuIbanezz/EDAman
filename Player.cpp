@@ -8,7 +8,7 @@ Player::Player(MQTTClient &mqttClient, GameModel &gameModel)
 	this->gameModel = &gameModel;
 	robotId = std::string("robot1");
 	lastKeyPressed = KEY_NULL;
-	previousDirection = KEY_NULL;
+	lastDirection = KEY_NULL;
 }
 
 Player::~Player()
@@ -53,6 +53,29 @@ Vector2 Player::getPlayerPosition()
 	return getTilePosition(setpoint);
 }
 
+int Player::getPlayerDirection()
+{
+	int direction = 0; 
+
+	switch (lastDirection)
+    {
+        case (KEY_UP):
+            direction = 0;
+            break;
+        case (KEY_RIGHT):
+            direction = 1;
+            break;
+        case (KEY_DOWN):
+            direction = 2;
+            break;
+        case (KEY_LEFT):
+            direction = 3;
+            break;
+    }
+
+	return direction;
+}
+
 bool Player::check(float deltaTime, bool nextMove)
 {
 	KeyboardKey option;
@@ -68,7 +91,7 @@ bool Player::check(float deltaTime, bool nextMove)
 	}
 	else
 	{
-		option = previousDirection;
+		option = lastDirection;
 	}
 
 	if (option == KEY_UP)
@@ -93,7 +116,7 @@ bool Player::check(float deltaTime, bool nextMove)
 		setpoint = robotFutureLocation;
 		if (nextMove)
 		{
-			previousDirection = lastKeyPressed;
+			lastDirection = lastKeyPressed;
 		}
 		return true;
 	}

@@ -24,10 +24,11 @@ void Orange::start()
     setpoint.rotation = ROTATION_UP;
     setpoint = getSetpoint({16, 17});
     setSetpoint(setpoint);
-    float aux = GetTime();
-    while (GetTime() - aux < 1.5) {
-        ;
-    }
+
+    // float aux = GetTime();
+    // while (GetTime() - aux < 1.5) {
+    //     ;
+    // }
 }
 
 void Orange::update(float deltaTime)

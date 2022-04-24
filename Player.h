@@ -13,10 +13,11 @@ public:
 	void update(float deltaTime);
 	void setKeyboardKey(KeyboardKey lastKeyPressed);
 	Vector2 getPlayerPosition();
+	int getPlayerDirection();
 
 private:
 	KeyboardKey lastKeyPressed;
-	KeyboardKey previousDirection;
+	KeyboardKey lastDirection;
 
 	bool check(float deltaTime, bool option);
 	void eatDots();

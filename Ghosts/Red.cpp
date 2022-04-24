@@ -26,15 +26,18 @@ void Red::start()
     setpoint.rotation = ROTATION_LEFT;
     setpoint = getSetpoint({14, 15});
     setSetpoint(setpoint);
+
     float aux = GetTime();
     while (GetTime() - aux < 1.5) {
         ;
     }
+ 
 }
 
 void Red::update(float deltaTime)
 {
-    if (gameModel->getGameTime() > 0) { //automaticamente al tocar una tecla Game time será mayor a 0 ent el rojo perseguirá
+    if (gameModel->getGameTime() > 0)   //automaticamente al tocar una tecla Game time será mayor a 0 ent el rojo perseguirá
+    { 
         calculateObjectiveTile();
         calculateNewDirection();
         move(deltaTime);

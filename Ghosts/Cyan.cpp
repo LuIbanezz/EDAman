@@ -21,10 +21,11 @@ void Cyan::start()
     setpoint.rotation = ROTATION_UP;
     setpoint = getSetpoint({12, 17});
 	setSetpoint(setpoint);
-    float aux = GetTime();
-    while (GetTime() - aux < 1.5) {
-        ;
-    }
+
+    // float aux = GetTime();
+    // while (GetTime() - aux < 1.5) {
+    //     ;
+    // }
 }
 
 void Cyan::update(float deltaTime)
