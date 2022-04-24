@@ -1,5 +1,0 @@
-C:/Users/santi/source/repos/agalan203/EDA_TP2_Grupo6/out/build/x64-Debug/CMakeFiles/main.dir
-C:/Users/santi/source/repos/agalan203/EDA_TP2_Grupo6/out/build/x64-Debug/CMakeFiles/controller_test.dir
-C:/Users/santi/source/repos/agalan203/EDA_TP2_Grupo6/out/build/x64-Debug/CMakeFiles/test.dir
-C:/Users/santi/source/repos/agalan203/EDA_TP2_Grupo6/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/santi/source/repos/agalan203/EDA_TP2_Grupo6/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

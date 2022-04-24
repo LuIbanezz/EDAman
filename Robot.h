@@ -22,7 +22,7 @@ class GameModel;
 #include <raylib.h>
 
 #include "MQTTClient.h"
-#include "GameModel.h"
+#include "Game/GameModel.h"
 
 /**
  * @brief Robot controller setpoint.

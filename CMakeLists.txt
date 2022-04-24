@@ -30,16 +30,16 @@ endif()
 
 add_executable(main 
                     main.cpp
-                    GameModel.cpp 
-                    GameView.cpp 
+                    Game/GameModel.cpp 
+                    Game/GameView.cpp 
                     MQTTClient.cpp 
                     Robot.cpp 
                     Player.cpp
                     Ghost.cpp
-                    Red.cpp 
-                    Cyan.cpp 
-                    Orange.cpp 
-                    Pink.cpp)
+                    Ghosts/Red.cpp 
+                    Ghosts/Cyan.cpp 
+                    Ghosts/Orange.cpp 
+                    Ghosts/Pink.cpp)
 
 # Packages
 find_package(raylib CONFIG REQUIRED)

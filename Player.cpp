@@ -2,8 +2,7 @@
 #include "raymath.h"
 #include "Player.h"
 
-
-Player::Player(MQTTClient& mqttClient, GameModel& gameModel)
+Player::Player(MQTTClient &mqttClient, GameModel &gameModel)
 {
 	this->mqttClient = &mqttClient;
 	this->gameModel = &gameModel;
@@ -22,17 +21,17 @@ void Player::start()
 	// TODO: Ver si lo que le mandamos al display va en start o en el constructor
 	setDisplay(1);
 	setEyes(YELLOW, YELLOW);
-	liftTo({ 0.0, 0.0, -0.8 });
 	setpoint.rotation = ROTATION_DOWN;
-	setpoint = getSetpoint({ 14,26 });
+	setpoint = getSetpoint({13, 26});
 	setSetpoint(setpoint);
 }
 
 void Player::update(float deltaTime)
 {
-	//vel que queremos m/s (fija(dato)) * 100 cm/m * deltaTimet
-	//0.64 * 100 * delta time ===>sumamos en la coordenada X o Y
-	//0.72 """"""
+	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0))
+	{
+		gameModel->setGameTime(GetTime());
+	}
 
 	if (check(deltaTime, true))
 	{
@@ -55,8 +54,8 @@ bool Player::check(float deltaTime, bool nextMove)
 	const float position = 0.64 * deltaTime;
 	Setpoint robotFutureLocation = setpoint;
 
-	//robotFutureLocation.position = 0.009 * deltaTime;
-	//robotFutureLocation.positionX += 0.009;
+	// robotFutureLocation.position = 0.009 * deltaTime;
+	// robotFutureLocation.positionX += 0.009;
 
 	if (nextMove)
 	{

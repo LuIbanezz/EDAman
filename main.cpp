@@ -13,14 +13,14 @@
 
 #include "MQTTClient.h"
 
-#include "GameModel.h"
-#include "GameView.h"
+#include "Game/GameModel.h"
+#include "Game/GameView.h"
 
 #include "Player.h"
-#include "Red.h"
-#include "Orange.h"
-#include "Cyan.h"
-#include "Pink.h"
+#include "Ghosts/Red.h"
+#include "Ghosts/Orange.h"
+#include "Ghosts/Cyan.h"
+#include "Ghosts/Pink.h"
 
 using namespace std;
 
