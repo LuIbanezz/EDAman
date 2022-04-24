@@ -76,6 +76,8 @@ void GameModel::start(string maze)
 
     gameState = GameStart;
 
+    gameTime = 0;
+
     gameView->setMessage(GameViewMessageReady);
     gameView->setLives(lives);
     gameView->setEatenFruits(eatenFruits);
@@ -130,4 +132,9 @@ void GameModel::setGameTime(float time)
 float GameModel::getGameTime()
 {
     return gameTime;
+}
+
+int GameModel::getRemainingDots() 
+{
+    return remainingDots;
 }

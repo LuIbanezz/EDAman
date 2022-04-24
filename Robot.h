@@ -79,7 +79,7 @@ protected:
     Vector2 getTilePosition(Setpoint setpoint);
     Setpoint getSetpoint(Vector2 tilePosition);
     void setSetpoint(Setpoint setpoint);
-    void liftTo(Vector3 destination); //TO DO revisar parametro vector3
+    void liftTo(Vector3 destination); 
     void setDisplay(int imageIndex);
     void setEyes(Color leftEye, Color rightEye);
 };

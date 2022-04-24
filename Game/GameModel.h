@@ -53,6 +53,8 @@ public:
     void setGameTime(float time);    
     float getGameTime();
 
+    int getRemainingDots();
+
 private:
     MQTTClient *mqttClient;
     GameView *gameView;
