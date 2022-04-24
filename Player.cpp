@@ -82,9 +82,6 @@ bool Player::check(float deltaTime, bool nextMove)
 	const float position = 0.64 * deltaTime;
 	Setpoint robotFutureLocation = setpoint;
 
-	// robotFutureLocation.position = 0.009 * deltaTime;
-	// robotFutureLocation.positionX += 0.009;
-
 	if (nextMove)
 	{
 		option = lastKeyPressed;
