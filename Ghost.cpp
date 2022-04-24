@@ -52,19 +52,27 @@ void Ghost::move(float deltaTime)
 
     switch (newDirection)
     {
-    case 0:
-        setpoint = moveUp(position, robotFutureLocation);
-        break;
-    case 1:
-        setpoint = moveRight(position, robotFutureLocation);
-        break;
-    case 2:
-        setpoint = moveDown(position, robotFutureLocation);
-        break;
-    case 3:
-        setpoint = moveLeft(position, robotFutureLocation);
-        break;
+        case 0:
+            setpoint = moveUp(position, robotFutureLocation);
+            break;
+        case 1:
+            setpoint = moveRight(position, robotFutureLocation);
+            break;
+        case 2:
+            setpoint = moveDown(position, robotFutureLocation);
+            break;
+        case 3:
+            setpoint = moveLeft(position, robotFutureLocation);
+            break;
     }
 
     setSetpoint(setpoint);
+}
+
+void Ghost::exitCage()
+{
+    setpoint = getSetpoint({14, 15});
+    setSetpoint(setpoint);
+    isMoving = true;
+    lastDirection = 0;
 }

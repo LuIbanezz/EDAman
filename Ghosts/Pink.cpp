@@ -24,7 +24,6 @@ void Pink::start()
     setSetpoint(setpoint);
 
     isMoving = false;
-    lastDirection = 0;
 
     // float aux = GetTime();
     // while (GetTime() - aux < 1.5)
@@ -39,10 +38,7 @@ void Pink::update(float deltaTime)
     {
         if (!isMoving)
         {
-            setpoint = getSetpoint({14, 15});
-            setSetpoint(setpoint);
-
-            isMoving = true;
+            exitCage();
         }
         else
         {

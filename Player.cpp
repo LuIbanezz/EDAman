@@ -41,6 +41,7 @@ void Player::update(float deltaTime)
 	{
 		setSetpoint(setpoint);
 	}
+	eatDots();
 }
 
 void Player::setKeyboardKey(KeyboardKey lastKeyPressed)

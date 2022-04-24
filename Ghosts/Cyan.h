@@ -2,11 +2,12 @@
 #define _CYAN_H
 
 #include "../Ghost.h"
+#include "Red.h"
 
 class Cyan : public Ghost
 {
 public:
-	Cyan(MQTTClient &mqttClient, GameModel &gameModel, Player &player);
+	Cyan(MQTTClient &mqttClient, GameModel &gameModel, Player &player, Red &red);
 	~Cyan();
 
 	void start();
@@ -14,6 +15,7 @@ public:
 
 private:
 	Player *player;
+	Red* red;
 	void calculateObjectiveTile();
 };
 

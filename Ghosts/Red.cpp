@@ -49,3 +49,7 @@ void Red::calculateObjectiveTile()
 {
     objectiveTile = player->getPlayerPosition();
 }
+
+Vector2 Red::getRedTile() {
+    return  getTilePosition(setpoint);
+}

@@ -12,6 +12,7 @@ public:
 
 	void start();
 	void update(float deltaTime);
+	Vector2 getRedTile();
 
 private:
 	Player *player;

@@ -89,7 +89,7 @@ int main(int, char **)
     Player player(mqttClient, gameModel);
     Red red(mqttClient, gameModel, player);
     Orange orange(mqttClient, gameModel, player);
-    Cyan cyan(mqttClient, gameModel, player);
+    Cyan cyan(mqttClient, gameModel, player, red);
     Pink pink(mqttClient, gameModel, player);
 
     gameModel.addRobot(&player);    // robot1

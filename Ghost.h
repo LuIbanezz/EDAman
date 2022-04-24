@@ -20,6 +20,7 @@ protected:
     virtual void calculateObjectiveTile() = 0;  // TODO in red, pink, cyan, orange
     void calculateNewDirection();       // TODO
     void move(float deltaTime);           // TODO
+    void exitCage();
 };
 
 #endif  // _GHOST_H

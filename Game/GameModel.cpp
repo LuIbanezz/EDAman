@@ -29,6 +29,9 @@ const int MAZE_SIZE = MAZE_WIDTH * MAZE_HEIGHT;
 GameModel::GameModel(MQTTClient *mqttClient)
 {
     this->mqttClient = mqttClient;
+    
+    remainingDots = 0;
+    remainingEnergizers = 0;
 }
 
 /**
@@ -65,7 +68,7 @@ void GameModel::start(string maze)
     {
         if (c == '+')
             remainingDots++;
-        else if (c == '*')
+        else if (c == '#')
             remainingEnergizers++;
     }
 
@@ -130,15 +133,15 @@ void GameModel::eat(Vector2 tilePosition)
 
     if (tile == '+')
     {
-        // maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
+        maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
         remainingDots--;
     }
     else if (tile == '#')
     {
-        // maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
-        remainingEnergizers--;
+        maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
+        remainingEnergizers--;
         //TODO: activate blue mode
     }
 }
