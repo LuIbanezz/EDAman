@@ -48,6 +48,11 @@ void Player::setKeyboardKey(KeyboardKey lastKeyPressed)
 	this->lastKeyPressed = lastKeyPressed;
 }
 
+Vector2 Player::getPlayerPosition()
+{
+	return getTilePosition(setpoint);
+}
+
 bool Player::check(float deltaTime, bool nextMove)
 {
 	KeyboardKey option;
@@ -96,7 +101,7 @@ bool Player::check(float deltaTime, bool nextMove)
 	return false;
 }
 
-Vector2 Player::getPlayerPosition()
+void Player::eatDots()
 {
-	return getTilePosition(setpoint);
+	gameModel->eat(getTilePosition(setpoint));
 }

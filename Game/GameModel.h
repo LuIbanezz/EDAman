@@ -49,6 +49,7 @@ public:
     void update(float deltaTime);
 
     bool isTileFree(Vector2 position);
+    void eat(Vector2 tilePosition);
 
     void setGameTime(float time);    
     float getGameTime();

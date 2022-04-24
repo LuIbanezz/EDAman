@@ -124,6 +124,25 @@ bool GameModel::isTileFree(Vector2 tilePosition)
     return (tile == ' ') || (tile == '+') || (tile == '#');
 }
 
+void GameModel::eat(Vector2 tilePosition)
+{
+    char tile = maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ];
+
+    if (tile == '+')
+    {
+        // maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
+        gameView->clearTile(tilePosition.x, tilePosition.y);
+        remainingDots--;
+    }
+    else if (tile == '#')
+    {
+        // maze[(int) (tilePosition.y)  * MAZE_WIDTH + (int)(tilePosition.x) ] = ' ';
+        remainingEnergizers--;
+        gameView->clearTile(tilePosition.x, tilePosition.y);
+        //TODO: activate blue mode
+    }
+}
+
 void GameModel::setGameTime(float time)
 {
     gameTime = time;

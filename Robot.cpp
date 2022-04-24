@@ -20,8 +20,8 @@ using namespace std;
  */
 Robot::Robot()
 {
-     displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
-    //displayImages = LoadImage("../RobotImages.png");
+    //  displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
+    displayImages = LoadImage("../RobotImages.png");
 }
 
 /**

@@ -19,6 +19,7 @@ private:
 	KeyboardKey previousDirection;
 
 	bool check(float deltaTime, bool option);
+	void eatDots();
 };
 
 #endif // _PLAYER_H
