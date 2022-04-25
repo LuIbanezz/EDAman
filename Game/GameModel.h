@@ -63,7 +63,7 @@ public:
 
 private:
 
-    void isCollision();
+    void checkCollision();
     
     MQTTClient *mqttClient;
     GameView *gameView;

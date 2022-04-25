@@ -24,6 +24,7 @@ Robot::Robot()
     // displayImages = LoadImage("../RobotImages.png");
 
     dead = false;
+    deadTimer = 0;
 }
 
 /**
@@ -180,9 +181,15 @@ Setpoint Robot::getSetpoint()
 void Robot::setDead(bool condition)
 {
     dead = condition;
+    deadTimer = GetTime();
 }
 
 void Robot::setObjectiveTile(Vector2 tilePosition)
+{
+    ;
+}
+
+void Robot::setKeyboardKey(KeyboardKey lastKeyPressed)
 {
     ;
 }

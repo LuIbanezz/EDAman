@@ -25,8 +25,9 @@ void Red::start()
     setEyes(RED, RED);
 
     setpoint.rotation = ROTATION_LEFT;
-    setpoint = getSetpoint({14, 14});
-    setSetpoint(setpoint);
+    setSetpoint(getSetpoint({14, 14}));
+
+    isMoving = true;
 
     float aux = GetTime();
     while (GetTime() - aux < 1.5) {
@@ -38,34 +39,7 @@ void Red::update(float deltaTime)
 {
     if (gameModel->getGameTime() > 0)   //automaticamente al tocar una tecla Game time será mayor a 0 ent el rojo perseguirá
     { 
-        if (setpoint.position.x == 14 && setpoint.position.x == 17)
-        {
-            exitCage();
-            dead = false;
-        }
-        else if (!dead)
-        {
-            switch(gameModel->getGameState())
-            {
-                case(Persecution):
-                    calculateObjectiveTile();
-                    break;
-                case(Dispersion):
-                    objectiveTile = dispersionTile;
-                    break;
-                case(Blue):
-                    calculateBlueObjectiveTile();
-                    break;
-            }
-
-            calculateNewDirection();
-            move(deltaTime);
-        }
-        else
-        {
-            calculateNewDirection();
-            move(deltaTime);
-        }
+		ghostState(deltaTime);
     }
 }
 

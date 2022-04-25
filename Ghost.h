@@ -24,6 +24,7 @@ protected:
     int lastDirection;
     int newDirection;
 
+    void ghostState(float deltaTime);
     virtual void calculateObjectiveTile() = 0;  
     void calculateBlueObjectiveTile();
     void calculateNewDirection();       

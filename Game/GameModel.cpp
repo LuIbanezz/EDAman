@@ -130,6 +130,8 @@ void GameModel::update(float deltaTime)
 
     for (auto robot : robots)
         robot->update(deltaTime);
+    
+    checkCollision();
 }
 
 /**
@@ -202,7 +204,7 @@ void GameModel::setGameState(int gameState)
     this->gameState = gameState;
 }
 
-void GameModel::isCollision()
+void GameModel::checkCollision()
 {
     float distanceBetweenSetpoints;
 
@@ -216,17 +218,32 @@ void GameModel::isCollision()
         
         distanceBetweenSetpoints = Vector2Length(Vector2Subtract(setpointPlayer, setpointGhost));
 
-        if (distanceBetweenSetpoints < 2.0)
+        if (distanceBetweenSetpoints < 0.2)
         {
             if (gameState == Blue)
-            {
-                robots[i]->setObjectiveTile({ 14,17 });    
-                robots[i]->setDead(true);            
+            { 
+                robots[i]->start();
+                robots[i]->setDead(true);
             }
-            // else
-            // {
-            //     muere player
-            // }
+            else
+            {
+                lives--;
+
+                if (lives)
+                {
+                    gameView->setLives(lives);
+                    robots[0]->setDead(true);
+                    robots[0]->setKeyboardKey(KEY_NULL);
+                    gameTime = 0;
+                    
+                    for (auto robot : robots)
+                        robot->start();
+                }
+                // else
+                // {
+                //     gameOver
+                // }
+            }
         }
     }
 }
@@ -240,3 +257,5 @@ void GameModel::isCollision()
 
 // OPCIONAL:
 // - Hacer pasillos (Optimizar movimiento)
+// - En algoritmo movimiento fijarse si hay robots adelante
+// - Sacar Ready! cuando empieza el juego

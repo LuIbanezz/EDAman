@@ -61,8 +61,10 @@ public:
     void setDisplay(int imageIndex);
 
     Setpoint getSetpoint();
+    void setSetpoint(Setpoint setpoint);
     virtual void setObjectiveTile(Vector2 tilePosition);
     void setDead(bool condition);
+    virtual void setKeyboardKey(KeyboardKey lastKeyPressed);
 
 protected:
     MQTTClient *mqttClient;
@@ -72,8 +74,10 @@ protected:
     Image displayImages;
 
     bool isMoving;
-    bool dead;
     Setpoint setpoint;
+
+    bool dead;
+    float deadTimer;
 
     Setpoint moveUp (float position, Setpoint futurePosition);
     Setpoint moveDown (float position, Setpoint futurePosition);
@@ -83,7 +87,6 @@ protected:
     Vector2 getTilePosition(Setpoint setpoint);
     Setpoint getSetpoint(Vector2 tilePosition);
     void liftTo(Vector3 destination); 
-    void setSetpoint(Setpoint setpoint);
     void setEyes(Color leftEye, Color rightEye);
 };
 

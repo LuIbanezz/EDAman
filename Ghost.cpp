@@ -4,6 +4,7 @@
 Ghost::Ghost()
 {
     srand(time(NULL));
+    
 }
 
 void Ghost::calculateNewDirection()
@@ -79,10 +80,18 @@ void Ghost::calculateBlueObjectiveTile()
 void Ghost::move(float deltaTime)
 {
     float velocity;
-	if (gameModel->getGameState() == Blue)
-		velocity = 0.4;
+    if (dead)
+    {
+        velocity = 0.75;
+    }
+	else if (gameModel->getGameState() == Blue)
+	{
+    	velocity = 0.4;
+    }
 	else
+    {
 		velocity = 0.6;
+    }
 	const float position = velocity * deltaTime;
 
     switch (newDirection)
@@ -112,8 +121,39 @@ void Ghost::exitCage()
 }
 
 //SETTERS
-
 void Ghost::setObjectiveTile(Vector2 tilePosition)
 {
     objectiveTile = tilePosition;
+}
+
+void Ghost::ghostState(float deltaTime)
+{
+    if (!isMoving || (((GetTime() - deadTimer) > 4) && dead))
+    {
+        exitCage();
+        dead = false;
+    }
+    else if (!dead)
+    {
+        switch (gameModel->getGameState())
+        {
+        case(Persecution):
+            calculateObjectiveTile();
+            break;
+        case(Dispersion):
+            objectiveTile = dispersionTile;
+            break;
+        case(Blue):
+            calculateBlueObjectiveTile();
+            break;
+        }
+
+        calculateNewDirection();
+        move(deltaTime);
+    }
+    else
+    {
+        calculateNewDirection();
+        move(deltaTime);
+    }
 }
