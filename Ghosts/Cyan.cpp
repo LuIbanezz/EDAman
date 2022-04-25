@@ -6,7 +6,7 @@ Cyan::Cyan(MQTTClient &mqttClient, GameModel &gameModel, Player &player, Red &re
     this->gameModel = &gameModel;
     this->player = &player;
     this->red = &red;
-    robotId = std::string("robot3");
+    robotId = std::string("robot4");
 
     dispersionTile = {28, 36 + 2};
     isMoving = false;
@@ -25,22 +25,18 @@ void Cyan::start()
     setpoint.rotation = ROTATION_UP;
     setpoint = getSetpoint({12, 17});
 	setSetpoint(setpoint);
-
-    // float aux = GetTime();
-    // while (GetTime() - aux < 1.5) {
-    //     ;
-    // }
 }
 
 void Cyan::update(float deltaTime)
 {
     if (gameModel->getRemainingDots() <= 175) //el 30 es solo por ahora, no conté la cantidad de remaining dots que hay, pero tiene  
     {                                        //que empezar cuando el jugador haya comido 60 dots
-        if (!isMoving)
+        if (!isMoving || (setpoint.position.x == 14 && setpoint.position.x == 17))
 		{
 			exitCage();
+            dead = false;
 		}
-		else
+		else if (!dead)
 		{
             switch(gameModel->getGameState())
             {
@@ -55,6 +51,11 @@ void Cyan::update(float deltaTime)
                     break;
             }
 
+            calculateNewDirection();
+            move(deltaTime);
+        }
+        else
+        {
             calculateNewDirection();
             move(deltaTime);
         }

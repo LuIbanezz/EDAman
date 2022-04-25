@@ -38,7 +38,6 @@ void Ghost::calculateNewDirection()
             {
                 distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile, nextTile));
 
-
                 if (minDistance - distanceObjectiveTile[i] > 0.25)  // dejo margen de error, si las 
                 {                                                     // distancias son muy parecidas, 
                     minDistance = distanceObjectiveTile[i];           // gasto menos energia si sigo de largo que si giro.
@@ -56,7 +55,7 @@ void Ghost::calculateBlueObjectiveTile()
     int direction;
     
     do {
-        direction = rand() % 3;
+        direction = rand() % 4;
     } while (direction != lastDirection);
 
     switch (direction)
@@ -79,25 +78,28 @@ void Ghost::calculateBlueObjectiveTile()
 
 void Ghost::move(float deltaTime)
 {
-    const float position = 0.60 * deltaTime;
-    Setpoint robotFutureLocation = setpoint;
+    float velocity;
+	if (gameModel->getGameState() == Blue)
+		velocity = 0.4;
+	else
+		velocity = 0.6;
+	const float position = velocity * deltaTime;
 
     switch (newDirection)
     {
         case 0:
-            setpoint = moveUp(position, robotFutureLocation);
+            setpoint = moveUp(position, setpoint);
             break;
         case 1:
-            setpoint = moveRight(position, robotFutureLocation);
+            setpoint = moveRight(position, setpoint);
             break;
         case 2:
-            setpoint = moveDown(position, robotFutureLocation);
+            setpoint = moveDown(position, setpoint);
             break;
         case 3:
-            setpoint = moveLeft(position, robotFutureLocation);
+            setpoint = moveLeft(position, setpoint);
             break;
     }
-
     setSetpoint(setpoint);
 }
 
@@ -107,4 +109,11 @@ void Ghost::exitCage()
     setSetpoint(setpoint);
     isMoving = true;
     lastDirection = 0;
+}
+
+//SETTERS
+
+void Ghost::setObjectiveTile(Vector2 tilePosition)
+{
+    objectiveTile = tilePosition;
 }

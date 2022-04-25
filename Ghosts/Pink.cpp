@@ -5,7 +5,7 @@ Pink::Pink(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
     this->mqttClient = &mqttClient;
     this->gameModel = &gameModel;
     this->player = &player;
-    robotId = std::string("robot4");
+    robotId = std::string("robot3");
 
     dispersionTile = {2, -2};
     isMoving = false;
@@ -38,11 +38,12 @@ void Pink::update(float deltaTime)
 {
     if (gameModel->getGameTime() > 0) // pink tambien est� libre al inicio
     {
-        if (!isMoving)
+        if (!isMoving || (setpoint.position.x == 14 && setpoint.position.x == 17))
         {
             exitCage();
+            dead = false;
         }
-        else
+        else if (!dead)
         {
             switch(gameModel->getGameState())
             {
@@ -57,6 +58,11 @@ void Pink::update(float deltaTime)
                     break;
             }
 
+            calculateNewDirection();
+            move(deltaTime);
+        }
+        else
+        {
             calculateNewDirection();
             move(deltaTime);
         }

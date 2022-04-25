@@ -60,7 +60,11 @@ public:
     int getGameState();
     void setGameState(int gameState);
 
+
 private:
+
+    void isCollision();
+    
     MQTTClient *mqttClient;
     GameView *gameView;
 
@@ -70,7 +74,8 @@ private:
     int gameState;
     float gameStateTime;
 
-    float gameTime;     
+    float gameTime;    
+    float auxTimer; 
 
     int remainingDots;
     int remainingEnergizers;

@@ -7,7 +7,7 @@ Orange::Orange(MQTTClient& mqttClient, GameModel& gameModel, Player& player)
 	this->player = &player;
 	robotId = std::string("robot5");
 
-	dispersionTile = { 0, 36 + 2 };   // TODO: ver MAZE_HEIGHT
+	dispersionTile = { 0, 30 };   // TODO: ver MAZE_HEIGHT
     isMoving = false;
 }
 
@@ -25,23 +25,18 @@ void Orange::start()
 	setpoint.rotation = ROTATION_UP;
 	setpoint = getSetpoint({ 16, 17 });
 	setSetpoint(setpoint);
-
-
-	// float aux = GetTime();
-	// while (GetTime() - aux < 1.5) {
-	//     ;
-	// }
 }
 
 void Orange::update(float deltaTime)
 {
-	if (gameModel->getRemainingDots() <= 205)   //tiene que empezar cuando el jugador haya comido 30 dots  
+	if (gameModel->getRemainingDots() <= 205)   // tiene que empezar cuando el jugador haya comido 30 dots  
 	{
-		if (!isMoving)
+		if (!isMoving || (setpoint.position.x == 14 && setpoint.position.x == 17))
 		{
 			exitCage();
+			dead = false;
 		}
-		else
+		else if (!dead)
 		{
 			switch(gameModel->getGameState())
             {
@@ -57,8 +52,14 @@ void Orange::update(float deltaTime)
             }
 
             calculateNewDirection();
+			//std::cout << "direccion:" << newDirection << std::endl;
             move(deltaTime);
 		}
+		else
+        {
+            calculateNewDirection();
+            move(deltaTime);
+        }
 	}
 }
 

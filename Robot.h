@@ -58,9 +58,13 @@ public:
 
     virtual void start()=0;
     virtual void update(float deltaTime)=0;
+    void setDisplay(int imageIndex);
+
+    Setpoint getSetpoint();
+    virtual void setObjectiveTile(Vector2 tilePosition);
+    void setDead(bool condition);
 
 protected:
-    // These variables should be set by you...
     MQTTClient *mqttClient;
     GameModel *gameModel;
     std::string robotId;
@@ -68,9 +72,9 @@ protected:
     Image displayImages;
 
     bool isMoving;
+    bool dead;
     Setpoint setpoint;
 
-    // Add your variables here...
     Setpoint moveUp (float position, Setpoint futurePosition);
     Setpoint moveDown (float position, Setpoint futurePosition);
     Setpoint moveLeft (float position, Setpoint futurePosition);
@@ -78,9 +82,8 @@ protected:
 
     Vector2 getTilePosition(Setpoint setpoint);
     Setpoint getSetpoint(Vector2 tilePosition);
-    void setSetpoint(Setpoint setpoint);
     void liftTo(Vector3 destination); 
-    void setDisplay(int imageIndex);
+    void setSetpoint(Setpoint setpoint);
     void setEyes(Color leftEye, Color rightEye);
 };
 

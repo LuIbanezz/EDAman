@@ -22,6 +22,8 @@ Robot::Robot()
 {
     displayImages = LoadImage("C:/Users/santi/source/repos/LuIbanezz/EDAman/RobotImages.png");
     // displayImages = LoadImage("../RobotImages.png");
+
+    dead = false;
 }
 
 /**
@@ -168,4 +170,19 @@ Setpoint Robot::moveRight (float position, Setpoint futurePosition)
     futurePosition.rotation = ROTATION_RIGHT;
 
     return futurePosition;
+}
+
+Setpoint Robot::getSetpoint()
+{
+    return setpoint;
+}
+
+void Robot::setDead(bool condition)
+{
+    dead = condition;
+}
+
+void Robot::setObjectiveTile(Vector2 tilePosition)
+{
+    ;
 }

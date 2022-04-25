@@ -80,8 +80,14 @@ int Player::getPlayerDirection()
 bool Player::check(float deltaTime, bool nextMove)
 {
 	KeyboardKey option;
-	const float position = 0.64 * deltaTime;
 	Setpoint robotFutureLocation = setpoint;
+
+	float velocity;
+	if (gameModel->getGameState() == Blue)
+		velocity = 0.7;
+	else
+		velocity = 0.64;
+	const float position = velocity * deltaTime;
 
 	if (nextMove)
 	{
@@ -109,6 +115,7 @@ bool Player::check(float deltaTime, bool nextMove)
 		robotFutureLocation = moveDown(position, robotFutureLocation);
 	}
 
+	// TODO: if (gameModel->isTileFree({robotFutureLocation.position.x,robotFutureLocation}))
 	if (gameModel->isTileFree(getTilePosition(robotFutureLocation)))
 	{
 		setpoint = robotFutureLocation;

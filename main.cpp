@@ -94,8 +94,8 @@ int main(int, char **)
 
     gameModel.addRobot(&player);    // robot1
     gameModel.addRobot(&red);       // robot2
-    gameModel.addRobot(&cyan);      // robot3
-    gameModel.addRobot(&pink);      // robot4
+    gameModel.addRobot(&pink);      // robot3
+    gameModel.addRobot(&cyan);      // robot4
     gameModel.addRobot(&orange);    // robot5 
 
     gameModel.start(maze);
