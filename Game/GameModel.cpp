@@ -106,6 +106,8 @@ void GameModel::update(float deltaTime)
 {
     if (remainingDots == 0 && remainingEnergizers == 0)         // Se fija si se termino un nivel
     {
+        gameView->playAudio("mainWon");
+
         maze = originalMaze;
         maze.resize(MAZE_SIZE);
 
@@ -140,6 +142,8 @@ void GameModel::update(float deltaTime)
 		{
             gameState = Dispersion;
             enemiesEaten = 0;
+
+            gameView->stopAudio("backgroundEnergizer");
 
 			for (int i = 1; i <= 4; i++)
 				robots[i]->setDisplay(15 + 2 * i);
@@ -195,13 +199,13 @@ void GameModel::eat(Vector2 tilePosition)
 
     if (tile == '+')
     {
-        // gameView->stopAudio("eatingDots");
+        gameView->stopAudio("eatingDots");
         maze[(int)(tilePosition.y) * MAZE_WIDTH + (int)(tilePosition.x)] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
         remainingDots--;
 
         score += 10;
-        // gameView->playAudio("eatingDots");
+        gameView->playAudio("eatingDots");
     }
     else if (tile == '#')
     {
@@ -211,6 +215,8 @@ void GameModel::eat(Vector2 tilePosition)
         remainingEnergizers--;
 
         score += 50;
+
+        gameView->playAudio("backgroundEnergizer");
         // gameView->playAudio("eatingDots");
 
         gameState = Blue;
@@ -265,6 +271,8 @@ void GameModel::checkCollision()
         {
             if (gameState == Blue)
             { 
+                gameView->playAudio("eatingGhost");
+
                 robots[i]->start();
                 robots[i]->setMoving(true);
                 robots[i]->setDisplay(30);
@@ -281,6 +289,8 @@ void GameModel::checkCollision()
                     gameView->setLives(lives);
                     robots[0]->setDead(true);
                     gameTime = 0;
+
+                    gameView->playAudio("mainLost");
                     
                     for (auto robot : robots)
                         robot->start();
