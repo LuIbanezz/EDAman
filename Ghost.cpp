@@ -1,10 +1,11 @@
 #include "Ghost.h"
 #include "Game/GameModel.h"
+#include <cstring>
 
 Ghost::Ghost()
 {
     srand(time(NULL));
-    
+
 }
 
 void Ghost::calculateNewDirection()
@@ -34,12 +35,13 @@ void Ghost::calculateNewDirection()
                 nextTile = Vector2Subtract(nextTile, {1, 0});
                 break;
             }
-
+            
             if (gameModel->isTileFree(nextTile))
             {
-                distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile, nextTile));
+                distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile, 
+                                                                            nextTile));
 
-                if (minDistance - distanceObjectiveTile[i] > 0.25)  // dejo margen de error, si las 
+                if (minDistance - distanceObjectiveTile[i] > 0.25)    // dejo margen de error, si las 
                 {                                                     // distancias son muy parecidas, 
                     minDistance = distanceObjectiveTile[i];           // gasto menos energia si sigo de largo que si giro.
                     newDirection = i;
@@ -82,7 +84,7 @@ void Ghost::move(float deltaTime)
     float velocity;
     if (dead)
     {
-        velocity = 0.75;
+        velocity = 0.7;
     }
 	else if (gameModel->getGameState() == Blue)
 	{
@@ -90,7 +92,7 @@ void Ghost::move(float deltaTime)
     }
 	else
     {
-		velocity = 0.6;
+		velocity = 0.55;
     }
 	const float position = velocity * deltaTime;
 
@@ -130,6 +132,7 @@ void Ghost::ghostState(float deltaTime)
 {
     if (!isMoving || (((GetTime() - deadTimer) > 4) && dead))
     {
+        setDisplay(16 + 2 * (robotId[5] - '0' - 2));
         exitCage();
         dead = false;
     }
@@ -151,9 +154,5 @@ void Ghost::ghostState(float deltaTime)
         calculateNewDirection();
         move(deltaTime);
     }
-    else
-    {
-        calculateNewDirection();
-        move(deltaTime);
-    }
 }
+

@@ -17,13 +17,13 @@ Pink::~Pink()
 
 void Pink::start()
 {
-	// TODO: Ver si lo que le mandamos al display va en start o en el constructor
 	setDisplay(19);
 	setEyes(PINK, PINK);
 	
 	liftTo({ 0, 0, 0 });
 	setpoint.rotation = ROTATION_UP;
 	setSetpoint(getSetpoint({ 14, 17 }));
+	objectiveTile = { 14, 17 };
 
 	isMoving = false;
 }

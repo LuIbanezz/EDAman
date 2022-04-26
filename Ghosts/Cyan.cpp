@@ -23,6 +23,7 @@ void Cyan::start()
 
     setpoint.rotation = ROTATION_UP;
 	setSetpoint(getSetpoint({12, 17}));
+    objectiveTile = { 12, 17 };
     
     isMoving = false;
 }

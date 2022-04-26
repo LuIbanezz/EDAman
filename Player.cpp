@@ -7,8 +7,6 @@ Player::Player(MQTTClient &mqttClient, GameModel &gameModel)
 	this->mqttClient = &mqttClient;
 	this->gameModel = &gameModel;
 	robotId = std::string("robot1");
-	lastKeyPressed = KEY_NULL;
-	lastDirection = KEY_NULL;
 }
 
 Player::~Player()
@@ -18,12 +16,15 @@ Player::~Player()
 
 void Player::start()
 {
-	// TODO: Ver si lo que le mandamos al display va en start o en el constructor
 	setDisplay(1);
 	setEyes(YELLOW, YELLOW);
+
 	setpoint.rotation = ROTATION_DOWN;
-	setpoint = getSetpoint({13, 26});
-	setSetpoint(setpoint);
+	setSetpoint(getSetpoint({14, 26}));
+
+	lastKeyPressed = KEY_NULL;
+	lastDirection = KEY_NULL;
+	dead = false;
 }
 
 void Player::update(float deltaTime)
@@ -31,6 +32,7 @@ void Player::update(float deltaTime)
 	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0)) //esto es para que arranque el tiempo cuando se presiona la primer tecla
 	{
 		gameModel->setGameTime(GetTime());
+		gameModel->setViewMessage(0);		// GameViewMessageNone = 0
 	}
 
 	if (check(deltaTime, true))

@@ -62,8 +62,10 @@ public:
 
     Setpoint getSetpoint();
     void setSetpoint(Setpoint setpoint);
+    void setMoving(bool moving);
     virtual void setObjectiveTile(Vector2 tilePosition);
     void setDead(bool condition);
+    bool getDead();
     virtual void setKeyboardKey(KeyboardKey lastKeyPressed);
 
 protected:

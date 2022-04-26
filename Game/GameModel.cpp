@@ -29,9 +29,6 @@ const int MAZE_SIZE = MAZE_WIDTH * MAZE_HEIGHT;
 GameModel::GameModel(MQTTClient* mqttClient)
 {
 	this->mqttClient = mqttClient;
-
-	remainingDots = 0;
-	remainingEnergizers = 0;
 }
 
 /**
@@ -59,10 +56,16 @@ void GameModel::addRobot(Robot* robot)
  *
  * @param maze A maze
  */
-void GameModel::start(string maze)
+void GameModel::start()
 {
-	this->maze = maze;
-	this->maze.resize(MAZE_SIZE);
+	maze = originalMaze;
+	maze.resize(MAZE_SIZE);
+
+	remainingDots = 0;
+	remainingEnergizers = 0;
+    score = 0;
+    lastScore = 0;
+    enemiesEaten = 0;
 
 	for (auto c : maze)
 	{
@@ -72,7 +75,7 @@ void GameModel::start(string maze)
 			remainingEnergizers++;
 	}
 
-	gameView->start(maze);
+	gameView->start(originalMaze);
 
 	lives = 4;
 	eatenFruits.clear();
@@ -87,7 +90,11 @@ void GameModel::start(string maze)
 
 	for (auto robot : robots)
 		robot->start();
+}
 
+void GameModel::setMaze(std::string maze)
+{
+    originalMaze = maze;
 }
 
 /**
@@ -97,14 +104,42 @@ void GameModel::start(string maze)
  */
 void GameModel::update(float deltaTime)
 {
-	gameStateTime += deltaTime;
+    if (remainingDots == 0 && remainingEnergizers == 0)         // Se fija si se termino un nivel
+    {
+        maze = originalMaze;
+        maze.resize(MAZE_SIZE);
+
+        gameTime = 0;
+
+        for (auto c : maze)
+        {
+            if (c == '+')
+                remainingDots++;
+            else if (c == '#')
+                remainingEnergizers++;
+        }
+
+        gameView->start(originalMaze);
+        gameView->setMessage(GameViewMessageReady);
+        gameView->setLives(lives);
+
+        for (auto robot : robots)
+            robot->start();
+    }
+
+    if (score != lastScore)
+    {
+        gameView->setScore(score);
+        lastScore = score;
+    }
+    gameStateTime += deltaTime;
 		
     if (gameState == Blue)
     {
-
         if (GetTime() - auxTimer > 6.0)
 		{
             gameState = Dispersion;
+            enemiesEaten = 0;
 
 			for (int i = 1; i <= 4; i++)
 				robots[i]->setDisplay(15 + 2 * i);
@@ -135,12 +170,12 @@ void GameModel::update(float deltaTime)
 }
 
 /**
-    * @brief Determine if a tile is free.
-    *
-    * @param tilePosition A tile coordinate
-    * @return true Tile is free
-    * @return false Tile is not free
-    */
+* @brief Determine if a tile is free.
+*
+* @param tilePosition A tile coordinate
+* @return true Tile is free
+* @return false Tile is not free
+*/
 bool GameModel::isTileFree(Vector2 tilePosition)
 {
     if ((tilePosition.x < 0) || (tilePosition.x >= MAZE_WIDTH))
@@ -160,15 +195,23 @@ void GameModel::eat(Vector2 tilePosition)
 
     if (tile == '+')
     {
+        // gameView->stopAudio("eatingDots");
         maze[(int)(tilePosition.y) * MAZE_WIDTH + (int)(tilePosition.x)] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
         remainingDots--;
+
+        score += 10;
+        // gameView->playAudio("eatingDots");
     }
     else if (tile == '#')
     {
+        // gameView->stopAudio("eatingDots");
         maze[(int)(tilePosition.y) * MAZE_WIDTH + (int)(tilePosition.x)] = ' ';
         gameView->clearTile(tilePosition.x, tilePosition.y);
         remainingEnergizers--;
+
+        score += 50;
+        // gameView->playAudio("eatingDots");
 
         gameState = Blue;
 
@@ -218,12 +261,16 @@ void GameModel::checkCollision()
         
         distanceBetweenSetpoints = Vector2Length(Vector2Subtract(setpointPlayer, setpointGhost));
 
-        if (distanceBetweenSetpoints < 0.2)
+        if (distanceBetweenSetpoints < 0.15)
         {
             if (gameState == Blue)
             { 
                 robots[i]->start();
+                robots[i]->setMoving(true);
+                robots[i]->setDisplay(30);
                 robots[i]->setDead(true);
+                enemiesEaten++;
+                score += std::pow(2, enemiesEaten) * 100;
             }
             else
             {
@@ -233,29 +280,63 @@ void GameModel::checkCollision()
                 {
                     gameView->setLives(lives);
                     robots[0]->setDead(true);
-                    robots[0]->setKeyboardKey(KEY_NULL);
                     gameTime = 0;
                     
                     for (auto robot : robots)
                         robot->start();
+
+                    float aux = GetTime();
+                    while (GetTime() - aux < 3) 
+                    {
+                        robots[0]->setKeyboardKey(KEY_NULL);
+                    }
+                    gameView->setMessage(GameViewMessageReady);
                 }
-                // else
-                // {
-                //     gameOver
-                // }
+                else
+                {
+                    start();
+                    deathEDAMAN();
+                    
+                    if (score > highScore)
+                    {
+                        highScore = score;
+                        gameView->setHighScore(highScore);
+                    }
+                 
+                    gameView->setMessage(GameViewMessageGameOver);
+                    float aux = GetTime();
+                    while (GetTime() - aux < 3) 
+                    {
+                        ;
+                    }
+                    gameView->setMessage(GameViewMessageReady);
+                    robots[0]->setDisplay(1);
+                }
             }
         }
     }
 }
 
-// TODO:
-// - Puntaje
-// - Choques 
-// - Empezar nuevo nivel
-// - Perder vida
-// - Game over
+void GameModel::setViewMessage(int value)
+{
+    gameView->setMessage((GameViewMessage) value);
+}
 
+void GameModel::deathEDAMAN()
+{
+    for (int i = 4; i <= 15; i++)
+    {
+        robots[0]->setDisplay(i);
+        
+        float aux = GetTime();
+        while (GetTime() - aux < 0.3) 
+        {
+            ;
+        }
+    }
+}
+
+//TODO
 // OPCIONAL:
 // - Hacer pasillos (Optimizar movimiento)
 // - En algoritmo movimiento fijarse si hay robots adelante
-// - Sacar Ready! cuando empieza el juego

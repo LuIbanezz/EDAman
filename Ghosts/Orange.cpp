@@ -25,6 +25,7 @@ void Orange::start()
 
     isMoving = false;
 	setSetpoint(getSetpoint({ 16, 17 }));
+	objectiveTile = { 16, 17 };
 }
 
 void Orange::update(float deltaTime)

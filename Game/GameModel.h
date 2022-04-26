@@ -22,8 +22,7 @@ enum GameState
 {
     Dispersion,
     Persecution,
-    Blue,
-    GameOver
+    Blue
 };
 
 #include <string>
@@ -46,7 +45,7 @@ public:
 
     void addRobot(Robot *robot);
 
-    void start(std::string maze);
+    void start();
     void update(float deltaTime);
 
     bool isTileFree(Vector2 position);
@@ -60,15 +59,20 @@ public:
     int getGameState();
     void setGameState(int gameState);
 
+    void setMaze(std::string maze);
+
+    void setViewMessage(int value);
 
 private:
 
     void checkCollision();
+    void deathEDAMAN();
     
     MQTTClient *mqttClient;
     GameView *gameView;
 
     std::string maze;
+    std::string originalMaze;
     std::vector<Robot *> robots;
 
     int gameState;
@@ -79,6 +83,11 @@ private:
 
     int remainingDots;
     int remainingEnergizers;
+    int enemiesEaten;
+
+    unsigned int highScore;
+    unsigned int score;
+    unsigned int lastScore;
 
     int lives;
     std::list<int> eatenFruits;

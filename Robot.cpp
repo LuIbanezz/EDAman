@@ -184,6 +184,11 @@ void Robot::setDead(bool condition)
     deadTimer = GetTime();
 }
 
+bool Robot::getDead() 
+{
+    return dead;
+}
+
 void Robot::setObjectiveTile(Vector2 tilePosition)
 {
     ;
@@ -192,4 +197,9 @@ void Robot::setObjectiveTile(Vector2 tilePosition)
 void Robot::setKeyboardKey(KeyboardKey lastKeyPressed)
 {
     ;
+}
+
+void Robot::setMoving(bool moving) 
+{
+    isMoving = moving;
 }

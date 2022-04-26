@@ -7,7 +7,6 @@ Red::Red(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
     this->player = &player;
     robotId = std::string("robot2");
 
-    objectiveTile = {0, 0};
     dispersionTile = {28-2,-2}; //MAZE_WIDTH - 2, -2
     lastDirection = 1;
     newDirection = 0;
@@ -20,19 +19,14 @@ Red::~Red()
 
 void Red::start()
 {
-    // TODO: Ver si lo que le mandamos al display va en start o en el constructor
     setDisplay(17);
     setEyes(RED, RED);
 
-    setpoint.rotation = ROTATION_LEFT;
+    setpoint.rotation = ROTATION_RIGHT;
     setSetpoint(getSetpoint({14, 14}));
+    objectiveTile = { 14, 14 };
 
     isMoving = true;
-
-    float aux = GetTime();
-    while (GetTime() - aux < 1.5) {
-        ;
-    }
 }
 
 void Red::update(float deltaTime)

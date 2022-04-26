@@ -98,7 +98,8 @@ int main(int, char **)
     gameModel.addRobot(&cyan);      // robot4
     gameModel.addRobot(&orange);    // robot5 
 
-    gameModel.start(maze);
+    gameModel.setMaze(maze);
+    gameModel.start();
 
     while (!WindowShouldClose() && mqttClient.isConnected())
     {
@@ -113,7 +114,10 @@ int main(int, char **)
         vector<MQTTMessage> messages = mqttClient.getMessages();
 
         // Model update
-        gameModel.update(deltaTime);
+        if (deltaTime < 0.04)
+        {
+            gameModel.update(deltaTime);
+        }
 
         // Keyboard control
         if (IsKeyDown(KEY_UP))
@@ -131,10 +135,6 @@ int main(int, char **)
         else if (IsKeyDown(KEY_LEFT))
         {
             player.setKeyboardKey(KEY_LEFT);
-        }
-        else
-        {
-            // Your code goes here...
         }
 
         gameView.update(deltaTime);
