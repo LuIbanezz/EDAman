@@ -15,24 +15,24 @@ Cyan::~Cyan()
 {
     mqttClient->disconnect();
 }
-    
+
 void Cyan::start()
 {
     setDisplay(21);
     setEyes(SKYBLUE, SKYBLUE);
 
     setpoint.rotation = ROTATION_UP;
-	setSetpoint(getSetpoint({12, 17}));
-    objectiveTile = { 12, 17 };
-    
+    setSetpoint(getSetpoint({12, 17}));
+    objectiveTile = {12, 17};
+
     isMoving = false;
 }
 
 void Cyan::update(float deltaTime)
 {
-    if ((gameModel->getRemainingDots() <= 175) && (gameModel->getGameTime() > 0))   // el 30 es solo por ahora, no conté la cantidad de remaining dots que hay, pero tiene  
-    {                                           // que empezar cuando el jugador haya comido 60 dots
-		ghostState(deltaTime);
+    if ((gameModel->getRemainingDots() <= 175) && (gameModel->getGameTime() > 0)) // el 30 es solo por ahora, no contï¿½ la cantidad de remaining dots que hay, pero tiene
+    {                                                                             // que empezar cuando el jugador haya comido 60 dots
+        ghostState(deltaTime);
     }
 }
 

@@ -4,13 +4,13 @@
  * @brief Controls EDA-Man LED floor and jukebox
  * @version 0.1
  * @date 2022-04-12
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #include <cmath>
-#include <cstring>  // std::memcpy
+#include <cstring> // std::memcpy
 #include <iomanip>
 #include <sstream>
 
@@ -32,7 +32,7 @@ const int READY_COLOR = 9;
 
 /**
  * @brief Construct a new Game View:: Game View object
- * 
+ *
  * @param mqttClient An MQTT client instance
  */
 GameView::GameView(MQTTClient *mqttClient)
@@ -49,7 +49,7 @@ GameView::GameView(MQTTClient *mqttClient)
 
 /**
  * @brief Resets screen to initial game conditions.
- * 
+ *
  * @param maze A maze (size 28x36)
  */
 void GameView::start(string maze)
@@ -98,7 +98,7 @@ void GameView::start(string maze)
 
 /**
  * @brief Updates screen for current frame.
- * 
+ *
  * @param deltaTime Number of seconds since the last frame.
  */
 void GameView::update(float deltaTime)
@@ -130,7 +130,7 @@ void GameView::update(float deltaTime)
 
 /**
  * @brief Sets game message ("READY!" at beginning of level, "GAME  OVER" at end of game, or hides message).
- * 
+ *
  * @param value A GameViewMessage
  */
 void GameView::setMessage(GameViewMessage value)
@@ -150,7 +150,7 @@ void GameView::setMessage(GameViewMessage value)
 
 /**
  * @brief Clears a tile (dot, energizer or fruit).
- * 
+ *
  * @param x x tile coordinate
  * @param y y tile coordinate
  */
@@ -171,7 +171,7 @@ void GameView::clearTile(int x, int y)
 
 /**
  * @brief Places a fruit in the maze.
- * 
+ *
  * @param x x tile coordinate of fruit
  * @param y y tile coorindate of fruit
  * @param fruitIndex Type of fruit (0 to 7)
@@ -185,7 +185,7 @@ void GameView::setFruit(int x, int y, int fruitIndex)
 
 /**
  * @brief Sets score.
- * 
+ *
  * @param value The score
  */
 void GameView::setScore(int value)
@@ -197,7 +197,7 @@ void GameView::setScore(int value)
 
 /**
  * @brief Sets high score.
- * 
+ *
  * @param value The high score
  */
 void GameView::setHighScore(int value)
@@ -209,7 +209,7 @@ void GameView::setHighScore(int value)
 
 /**
  * @brief Updates number of lives left indicator (lower left).
- * 
+ *
  * @param numberOfLives Number of lives left
  */
 void GameView::setLives(int numberOfLives)
@@ -238,7 +238,7 @@ void GameView::setLives(int numberOfLives)
 
 /**
  * @brief Updates the eaten fruits indicator (lower right).
- * 
+ *
  * @param fruitIndices List of all eaten fruits (fruitIndex is type of fruit: 0 to 7)
  */
 void GameView::setEatenFruits(list<int> &fruitIndices)
@@ -272,7 +272,7 @@ void GameView::setEatenFruits(list<int> &fruitIndices)
 
 /**
  * @brief Sends screen tiles. Wraps long lines to next row(s).
- * 
+ *
  * @param x start in x tile coordinates
  * @param y start in y tile coordinates
  * @param palette Palette color (tints characters 0x00-0x7f)
@@ -292,7 +292,7 @@ void GameView::setTiles(int x, int y, int palette, string s)
 
 /**
  * @brief Clears the LED floor.
- * 
+ *
  */
 void GameView::clearScreen()
 {
@@ -301,7 +301,7 @@ void GameView::clearScreen()
 
 /**
  * @brief Plays a sound.
- * 
+ *
  * @param audioId Audio id
  */
 void GameView::playAudio(string audioId)
@@ -313,7 +313,7 @@ void GameView::playAudio(string audioId)
 
 /**
  * @brief Stops a sound.
- * 
+ *
  * @param audioId Audio id
  */
 void GameView::stopAudio(string audioId)

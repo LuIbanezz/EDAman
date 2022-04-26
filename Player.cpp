@@ -29,10 +29,10 @@ void Player::start()
 
 void Player::update(float deltaTime)
 {
-	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0)) //esto es para que arranque el tiempo cuando se presiona la primer tecla
+	if ((lastKeyPressed != KEY_NULL) && (gameModel->getGameTime() == 0)) // esto es para que arranque el tiempo cuando se presiona la primer tecla
 	{
 		gameModel->setGameTime(GetTime());
-		gameModel->setViewMessage(0);		// GameViewMessageNone = 0
+		gameModel->setViewMessage(0); // GameViewMessageNone = 0
 	}
 
 	if (check(deltaTime, true))
@@ -58,23 +58,23 @@ Vector2 Player::getPlayerPosition()
 
 int Player::getPlayerDirection()
 {
-	int direction = 0; 
+	int direction = 0;
 
 	switch (lastDirection)
-    {
-        case (KEY_UP):
-            direction = 0;
-            break;
-        case (KEY_RIGHT):
-            direction = 1;
-            break;
-        case (KEY_DOWN):
-            direction = 2;
-            break;
-        case (KEY_LEFT):
-            direction = 3;
-            break;
-    }
+	{
+	case (KEY_UP):
+		direction = 0;
+		break;
+	case (KEY_RIGHT):
+		direction = 1;
+		break;
+	case (KEY_DOWN):
+		direction = 2;
+		break;
+	case (KEY_LEFT):
+		direction = 3;
+		break;
+	}
 
 	return direction;
 }

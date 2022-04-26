@@ -7,7 +7,7 @@
 class Red : public Ghost
 {
 public:
-	Red(MQTTClient& mqttClient, GameModel& gameModel, Player &player);
+	Red(MQTTClient &mqttClient, GameModel &gameModel, Player &player);
 	~Red();
 
 	void start();

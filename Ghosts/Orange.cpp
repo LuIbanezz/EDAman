@@ -1,13 +1,13 @@
 #include "Orange.h"
 
-Orange::Orange(MQTTClient& mqttClient, GameModel& gameModel, Player& player)
+Orange::Orange(MQTTClient &mqttClient, GameModel &gameModel, Player &player)
 {
 	this->mqttClient = &mqttClient;
 	this->gameModel = &gameModel;
 	this->player = &player;
 	robotId = std::string("robot5");
 
-	dispersionTile = { 0, 30 };   // TODO: ver MAZE_HEIGHT
+	dispersionTile = {0, 30}; // TODO: ver MAZE_HEIGHT
 }
 
 Orange::~Orange()
@@ -23,20 +23,20 @@ void Orange::start()
 
 	setpoint.rotation = ROTATION_UP;
 
-    isMoving = false;
-	setSetpoint(getSetpoint({ 16, 17 }));
-	objectiveTile = { 16, 17 };
+	isMoving = false;
+	setSetpoint(getSetpoint({16, 17}));
+	objectiveTile = {16, 17};
 }
 
 void Orange::update(float deltaTime)
 {
-	if ((gameModel->getRemainingDots() <= 205) && (gameModel->getGameTime() > 0))   // tiene que empezar cuando el jugador haya comido 30 dots  
+	if ((gameModel->getRemainingDots() <= 205) && (gameModel->getGameTime() > 0)) // tiene que empezar cuando el jugador haya comido 30 dots
 	{
 		ghostState(deltaTime);
 	}
 }
 
-void Orange::calculateObjectiveTile() //TODO
+void Orange::calculateObjectiveTile() // TODO
 {
 	float norm = Vector2Length(Vector2Subtract(player->getPlayerPosition(), getTilePosition(setpoint)));
 

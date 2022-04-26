@@ -25,11 +25,11 @@ protected:
     int newDirection;
 
     void ghostState(float deltaTime);
-    virtual void calculateObjectiveTile() = 0;  
+    virtual void calculateObjectiveTile() = 0;
     void calculateBlueObjectiveTile();
-    void calculateNewDirection();       
-    void move(float deltaTime);   
+    void calculateNewDirection();
+    void move(float deltaTime);
     void exitCage();
 };
 
-#endif  // _GHOST_H
+#endif // _GHOST_H

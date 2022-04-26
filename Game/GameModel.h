@@ -4,9 +4,9 @@
  * @brief EDA-Man game model
  * @version 0.1
  * @date 2022-04-12
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _GAMEMODEL_H
@@ -16,7 +16,7 @@ class Robot;
 
 /**
  * @brief Game state
- * 
+ *
  */
 enum GameState
 {
@@ -51,7 +51,7 @@ public:
     bool isTileFree(Vector2 position);
     void eat(Vector2 tilePosition);
 
-    void setGameTime(float time);    
+    void setGameTime(float time);
     float getGameTime();
 
     int getRemainingDots();
@@ -64,10 +64,9 @@ public:
     void setViewMessage(int value);
 
 private:
-
     void checkCollision();
     void deathEDAMAN();
-    
+
     MQTTClient *mqttClient;
     GameView *gameView;
 
@@ -78,8 +77,8 @@ private:
     int gameState;
     float gameStateTime;
 
-    float gameTime;    
-    float auxTimer; 
+    float gameTime;
+    float auxTimer;
 
     int remainingDots;
     int remainingEnergizers;

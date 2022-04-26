@@ -26,7 +26,7 @@ class GameModel;
 
 /**
  * @brief Robot controller setpoint.
- * 
+ *
  * position.x is world position x
  * position.y is world position z
  * rotation is world rotation y
@@ -39,7 +39,7 @@ struct Setpoint
 
 /**
  * @brief Indicates a robot direction.
- * 
+ *
  */
 enum Direction
 {
@@ -56,8 +56,8 @@ public:
     Robot();
     virtual ~Robot();
 
-    virtual void start()=0;
-    virtual void update(float deltaTime)=0;
+    virtual void start() = 0;
+    virtual void update(float deltaTime) = 0;
     void setDisplay(int imageIndex);
 
     Setpoint getSetpoint();
@@ -81,14 +81,14 @@ protected:
     bool dead;
     float deadTimer;
 
-    Setpoint moveUp (float position, Setpoint futurePosition);
-    Setpoint moveDown (float position, Setpoint futurePosition);
-    Setpoint moveLeft (float position, Setpoint futurePosition);
-    Setpoint moveRight (float position, Setpoint futurePosition);
+    Setpoint moveUp(float position, Setpoint futurePosition);
+    Setpoint moveDown(float position, Setpoint futurePosition);
+    Setpoint moveLeft(float position, Setpoint futurePosition);
+    Setpoint moveRight(float position, Setpoint futurePosition);
 
     Vector2 getTilePosition(Setpoint setpoint);
     Setpoint getSetpoint(Vector2 tilePosition);
-    void liftTo(Vector3 destination); 
+    void liftTo(Vector3 destination);
     void setEyes(Color leftEye, Color rightEye);
 };
 

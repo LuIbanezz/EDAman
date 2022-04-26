@@ -26,9 +26,9 @@ const int MAZE_SIZE = MAZE_WIDTH * MAZE_HEIGHT;
  *
  * @param mqttClient An MQTTClient object
  */
-GameModel::GameModel(MQTTClient* mqttClient)
+GameModel::GameModel(MQTTClient *mqttClient)
 {
-	this->mqttClient = mqttClient;
+    this->mqttClient = mqttClient;
 }
 
 /**
@@ -36,9 +36,9 @@ GameModel::GameModel(MQTTClient* mqttClient)
  *
  * @param gameView A GameView object
  */
-void GameModel::setGameView(GameView* gameView)
+void GameModel::setGameView(GameView *gameView)
 {
-	this->gameView = gameView;
+    this->gameView = gameView;
 }
 
 /**
@@ -46,9 +46,9 @@ void GameModel::setGameView(GameView* gameView)
  *
  * @param robot The robot
  */
-void GameModel::addRobot(Robot* robot)
+void GameModel::addRobot(Robot *robot)
 {
-	robots.push_back(robot);
+    robots.push_back(robot);
 }
 
 /**
@@ -58,38 +58,38 @@ void GameModel::addRobot(Robot* robot)
  */
 void GameModel::start()
 {
-	maze = originalMaze;
-	maze.resize(MAZE_SIZE);
+    maze = originalMaze;
+    maze.resize(MAZE_SIZE);
 
-	remainingDots = 0;
-	remainingEnergizers = 0;
+    remainingDots = 0;
+    remainingEnergizers = 0;
     score = 0;
     lastScore = 0;
     enemiesEaten = 0;
 
-	for (auto c : maze)
-	{
-		if (c == '+')
-			remainingDots++;
-		else if (c == '#')
-			remainingEnergizers++;
-	}
+    for (auto c : maze)
+    {
+        if (c == '+')
+            remainingDots++;
+        else if (c == '#')
+            remainingEnergizers++;
+    }
 
-	gameView->start(originalMaze);
+    gameView->start(originalMaze);
 
-	lives = 4;
-	eatenFruits.clear();
+    lives = 4;
+    eatenFruits.clear();
 
-	gameState = Dispersion;
-	gameTime = 0;
+    gameState = Dispersion;
+    gameTime = 0;
 
-	gameView->setMessage(GameViewMessageReady);
-	gameView->setLives(lives);
-	gameView->setEatenFruits(eatenFruits);
-	gameView->playAudio("mainStart");
+    gameView->setMessage(GameViewMessageReady);
+    gameView->setLives(lives);
+    gameView->setEatenFruits(eatenFruits);
+    gameView->playAudio("mainStart");
 
-	for (auto robot : robots)
-		robot->start();
+    for (auto robot : robots)
+        robot->start();
 }
 
 void GameModel::setMaze(std::string maze)
@@ -104,7 +104,7 @@ void GameModel::setMaze(std::string maze)
  */
 void GameModel::update(float deltaTime)
 {
-    if (remainingDots == 0 && remainingEnergizers == 0)         // Se fija si se termino un nivel
+    if (remainingDots == 0 && remainingEnergizers == 0) // Se fija si se termino un nivel
     {
         gameView->playAudio("mainWon");
 
@@ -135,19 +135,19 @@ void GameModel::update(float deltaTime)
         lastScore = score;
     }
     gameStateTime += deltaTime;
-		
+
     if (gameState == Blue)
     {
         if (GetTime() - auxTimer > 6.0)
-		{
+        {
             gameState = Dispersion;
             enemiesEaten = 0;
 
             gameView->stopAudio("backgroundEnergizer");
 
-			for (int i = 1; i <= 4; i++)
-				robots[i]->setDisplay(15 + 2 * i);
-		}
+            for (int i = 1; i <= 4; i++)
+                robots[i]->setDisplay(15 + 2 * i);
+        }
     }
     else
     {
@@ -155,13 +155,13 @@ void GameModel::update(float deltaTime)
 
         // DISPERSION MODE
         if (((0 <= auxTimer) && (auxTimer <= 7)) || ((27 <= auxTimer) && (auxTimer <= 34)) ||
-            ((54 <= auxTimer) && (auxTimer <= 59)) || ((79 <= auxTimer) && (auxTimer <= 84)))    
+            ((54 <= auxTimer) && (auxTimer <= 59)) || ((79 <= auxTimer) && (auxTimer <= 84)))
         {
             gameState = Dispersion;
         }
-        //PERSECUTION MODE
+        // PERSECUTION MODE
         else if (((7 < auxTimer) && (auxTimer < 27)) || ((34 < auxTimer) && (auxTimer < 54)) ||
-                    ((59 < auxTimer) && (auxTimer < 79)) || (84 < auxTimer ))
+                 ((59 < auxTimer) && (auxTimer < 79)) || (84 < auxTimer))
         {
             gameState = Persecution;
         }
@@ -169,17 +169,17 @@ void GameModel::update(float deltaTime)
 
     for (auto robot : robots)
         robot->update(deltaTime);
-    
+
     checkCollision();
 }
 
 /**
-* @brief Determine if a tile is free.
-*
-* @param tilePosition A tile coordinate
-* @return true Tile is free
-* @return false Tile is not free
-*/
+ * @brief Determine if a tile is free.
+ *
+ * @param tilePosition A tile coordinate
+ * @return true Tile is free
+ * @return false Tile is not free
+ */
 bool GameModel::isTileFree(Vector2 tilePosition)
 {
     if ((tilePosition.x < 0) || (tilePosition.x >= MAZE_WIDTH))
@@ -260,17 +260,17 @@ void GameModel::checkCollision()
     Setpoint setpoint = robots[0]->getSetpoint();
     Vector2 setpointPlayer = {setpoint.position.x, setpoint.position.y};
     Vector2 setpointGhost;
-    for (int i = 1; i <=4; i++)
+    for (int i = 1; i <= 4; i++)
     {
         setpoint = robots[i]->getSetpoint();
         setpointGhost = {setpoint.position.x, setpoint.position.y};
-        
+
         distanceBetweenSetpoints = Vector2Length(Vector2Subtract(setpointPlayer, setpointGhost));
 
         if (distanceBetweenSetpoints < 0.15)
         {
             if (gameState == Blue)
-            { 
+            {
                 gameView->playAudio("eatingGhost");
 
                 robots[i]->start();
@@ -291,12 +291,12 @@ void GameModel::checkCollision()
                     gameTime = 0;
 
                     gameView->playAudio("mainLost");
-                    
+
                     for (auto robot : robots)
                         robot->start();
 
                     float aux = GetTime();
-                    while (GetTime() - aux < 3) 
+                    while (GetTime() - aux < 3)
                     {
                         robots[0]->setKeyboardKey(KEY_NULL);
                     }
@@ -306,16 +306,16 @@ void GameModel::checkCollision()
                 {
                     start();
                     deathEDAMAN();
-                    
+
                     if (score > highScore)
                     {
                         highScore = score;
                         gameView->setHighScore(highScore);
                     }
-                 
+
                     gameView->setMessage(GameViewMessageGameOver);
                     float aux = GetTime();
-                    while (GetTime() - aux < 3) 
+                    while (GetTime() - aux < 3)
                     {
                         ;
                     }
@@ -329,7 +329,7 @@ void GameModel::checkCollision()
 
 void GameModel::setViewMessage(int value)
 {
-    gameView->setMessage((GameViewMessage) value);
+    gameView->setMessage((GameViewMessage)value);
 }
 
 void GameModel::deathEDAMAN()
@@ -337,16 +337,16 @@ void GameModel::deathEDAMAN()
     for (int i = 4; i <= 15; i++)
     {
         robots[0]->setDisplay(i);
-        
+
         float aux = GetTime();
-        while (GetTime() - aux < 0.3) 
+        while (GetTime() - aux < 0.3)
         {
             ;
         }
     }
 }
 
-//TODO
-// OPCIONAL:
-// - Hacer pasillos (Optimizar movimiento)
-// - En algoritmo movimiento fijarse si hay robots adelante
+// TODO
+//  OPCIONAL:
+//  - Hacer pasillos (Optimizar movimiento)
+//  - En algoritmo movimiento fijarse si hay robots adelante

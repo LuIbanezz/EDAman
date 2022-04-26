@@ -3,7 +3,7 @@
  *
  * @copyright Copyright (C) 2022
  * @author Marc S. Ressl
- * 
+ *
  * @brief Controls an EDA-Man game.
  */
 
@@ -92,11 +92,11 @@ int main(int, char **)
     Cyan cyan(mqttClient, gameModel, player, red);
     Pink pink(mqttClient, gameModel, player);
 
-    gameModel.addRobot(&player);    // robot1
-    gameModel.addRobot(&red);       // robot2
-    gameModel.addRobot(&pink);      // robot3
-    gameModel.addRobot(&cyan);      // robot4
-    gameModel.addRobot(&orange);    // robot5 
+    gameModel.addRobot(&player); // robot1
+    gameModel.addRobot(&red);    // robot2
+    gameModel.addRobot(&pink);   // robot3
+    gameModel.addRobot(&cyan);   // robot4
+    gameModel.addRobot(&orange); // robot5
 
     gameModel.setMaze(maze);
     gameModel.start();

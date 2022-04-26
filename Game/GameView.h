@@ -4,9 +4,9 @@
  * @brief Controls the EDA-Man views (LED floor and jukebox)
  * @version 0.1
  * @date 2022-04-12
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _GAMEVIEW_H
@@ -20,7 +20,7 @@
 
 /**
  * @brief A message for the GameView setMessage method.
- * 
+ *
  */
 enum GameViewMessage
 {

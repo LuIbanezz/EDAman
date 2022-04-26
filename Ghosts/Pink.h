@@ -6,7 +6,7 @@
 class Pink : public Ghost
 {
 public:
-	Pink(MQTTClient& mqttClient, GameModel& gameModel, Player &player);
+	Pink(MQTTClient &mqttClient, GameModel &gameModel, Player &player);
 	~Pink();
 
 	void start();

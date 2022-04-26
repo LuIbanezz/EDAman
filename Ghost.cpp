@@ -5,7 +5,6 @@
 Ghost::Ghost()
 {
     srand(time(NULL));
-
 }
 
 void Ghost::calculateNewDirection()
@@ -35,15 +34,15 @@ void Ghost::calculateNewDirection()
                 nextTile = Vector2Subtract(nextTile, {1, 0});
                 break;
             }
-            
+
             if (gameModel->isTileFree(nextTile))
             {
-                distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile, 
-                                                                            nextTile));
+                distanceObjectiveTile[i] = Vector2Length(Vector2Subtract(objectiveTile,
+                                                                         nextTile));
 
-                if (minDistance - distanceObjectiveTile[i] > 0.25)    // dejo margen de error, si las 
-                {                                                     // distancias son muy parecidas, 
-                    minDistance = distanceObjectiveTile[i];           // gasto menos energia si sigo de largo que si giro.
+                if (minDistance - distanceObjectiveTile[i] > 0.25) // dejo margen de error, si las
+                {                                                  // distancias son muy parecidas,
+                    minDistance = distanceObjectiveTile[i];        // gasto menos energia si sigo de largo que si giro.
                     newDirection = i;
                 }
             }
@@ -56,27 +55,27 @@ void Ghost::calculateNewDirection()
 void Ghost::calculateBlueObjectiveTile()
 {
     int direction;
-    
-    do {
+
+    do
+    {
         direction = rand() % 4;
     } while (direction != lastDirection);
 
     switch (direction)
     {
-        case 0:
-            objectiveTile = Vector2Subtract(getTilePosition(setpoint), { 0,1 });
-            break;
-        case 1:
-            objectiveTile = Vector2Add(getTilePosition(setpoint), {1, 0});
-            break;
-        case 2:
-            objectiveTile = Vector2Add(getTilePosition(setpoint), { 0, 1 });
-            break;
-        case 3:
-            objectiveTile = Vector2Subtract(getTilePosition(setpoint), { 1,0 });
-            break;
+    case 0:
+        objectiveTile = Vector2Subtract(getTilePosition(setpoint), {0, 1});
+        break;
+    case 1:
+        objectiveTile = Vector2Add(getTilePosition(setpoint), {1, 0});
+        break;
+    case 2:
+        objectiveTile = Vector2Add(getTilePosition(setpoint), {0, 1});
+        break;
+    case 3:
+        objectiveTile = Vector2Subtract(getTilePosition(setpoint), {1, 0});
+        break;
     }
-
 }
 
 void Ghost::move(float deltaTime)
@@ -86,30 +85,30 @@ void Ghost::move(float deltaTime)
     {
         velocity = 0.7;
     }
-	else if (gameModel->getGameState() == Blue)
-	{
-    	velocity = 0.4;
-    }
-	else
+    else if (gameModel->getGameState() == Blue)
     {
-		velocity = 0.55;
+        velocity = 0.4;
     }
-	const float position = velocity * deltaTime;
+    else
+    {
+        velocity = 0.55;
+    }
+    const float position = velocity * deltaTime;
 
     switch (newDirection)
     {
-        case 0:
-            setpoint = moveUp(position, setpoint);
-            break;
-        case 1:
-            setpoint = moveRight(position, setpoint);
-            break;
-        case 2:
-            setpoint = moveDown(position, setpoint);
-            break;
-        case 3:
-            setpoint = moveLeft(position, setpoint);
-            break;
+    case 0:
+        setpoint = moveUp(position, setpoint);
+        break;
+    case 1:
+        setpoint = moveRight(position, setpoint);
+        break;
+    case 2:
+        setpoint = moveDown(position, setpoint);
+        break;
+    case 3:
+        setpoint = moveLeft(position, setpoint);
+        break;
     }
     setSetpoint(setpoint);
 }
@@ -122,7 +121,7 @@ void Ghost::exitCage()
     lastDirection = 0;
 }
 
-//SETTERS
+// SETTERS
 void Ghost::setObjectiveTile(Vector2 tilePosition)
 {
     objectiveTile = tilePosition;
@@ -140,13 +139,13 @@ void Ghost::ghostState(float deltaTime)
     {
         switch (gameModel->getGameState())
         {
-        case(Persecution):
+        case (Persecution):
             calculateObjectiveTile();
             break;
-        case(Dispersion):
+        case (Dispersion):
             objectiveTile = dispersionTile;
             break;
-        case(Blue):
+        case (Blue):
             calculateBlueObjectiveTile();
             break;
         }
@@ -155,4 +154,3 @@ void Ghost::ghostState(float deltaTime)
         move(deltaTime);
     }
 }
-

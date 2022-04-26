@@ -5,7 +5,7 @@
  * @author Marc S. Ressl
  */
 
-#include <cstring>  // std::memcpy
+#include <cstring> // std::memcpy
 #include <iostream>
 #include <vector>
 #include <raylib.h>
@@ -16,7 +16,7 @@ using namespace std;
 
 /**
  * @brief Construct a new Robot:: Robot object
- * 
+ *
  */
 Robot::Robot()
 {
@@ -29,7 +29,7 @@ Robot::Robot()
 
 /**
  * @brief Destroy the Robot:: Robot object
- * 
+ *
  */
 Robot::~Robot()
 {
@@ -141,15 +141,15 @@ void Robot::setEyes(Color leftEye, Color rightEye)
     mqttClient->publish(robotId + "/display/rightEye/set", payload);
 }
 
-Setpoint Robot::moveUp (float position, Setpoint futurePosition)
+Setpoint Robot::moveUp(float position, Setpoint futurePosition)
 {
-    futurePosition.position = Vector2Add(futurePosition.position, { 0, position});
+    futurePosition.position = Vector2Add(futurePosition.position, {0, position});
     futurePosition.rotation = ROTATION_UP;
 
     return futurePosition;
 }
 
-Setpoint Robot::moveDown (float position, Setpoint futurePosition)
+Setpoint Robot::moveDown(float position, Setpoint futurePosition)
 {
     futurePosition.position = Vector2Subtract(futurePosition.position, {0, position});
     futurePosition.rotation = ROTATION_DOWN;
@@ -157,17 +157,18 @@ Setpoint Robot::moveDown (float position, Setpoint futurePosition)
     return futurePosition;
 }
 
-Setpoint Robot::moveLeft (float position, Setpoint futurePosition)
+Setpoint Robot::moveLeft(float position, Setpoint futurePosition)
 {
-    futurePosition.position = Vector2Subtract(futurePosition.position, {position, 0 });;
+    futurePosition.position = Vector2Subtract(futurePosition.position, {position, 0});
+    ;
     futurePosition.rotation = ROTATION_LEFT;
 
     return futurePosition;
 }
 
-Setpoint Robot::moveRight (float position, Setpoint futurePosition)
+Setpoint Robot::moveRight(float position, Setpoint futurePosition)
 {
-    futurePosition.position = Vector2Add(futurePosition.position, {position , 0 });
+    futurePosition.position = Vector2Add(futurePosition.position, {position, 0});
     futurePosition.rotation = ROTATION_RIGHT;
 
     return futurePosition;
@@ -184,7 +185,7 @@ void Robot::setDead(bool condition)
     deadTimer = GetTime();
 }
 
-bool Robot::getDead() 
+bool Robot::getDead()
 {
     return dead;
 }
@@ -199,7 +200,7 @@ void Robot::setKeyboardKey(KeyboardKey lastKeyPressed)
     ;
 }
 
-void Robot::setMoving(bool moving) 
+void Robot::setMoving(bool moving)
 {
     isMoving = moving;
 }

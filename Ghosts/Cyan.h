@@ -15,7 +15,7 @@ public:
 
 private:
 	Player *player;
-	Red* red;
+	Red *red;
 	void calculateObjectiveTile();
 };
 
